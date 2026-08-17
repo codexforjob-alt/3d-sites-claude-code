@@ -1,0 +1,21 @@
+{
+  "name": "kedr",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cinematic single-page site for КЕДР — wood-fired oven and sushi counter, Almaty.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 4173"
+  },
+  "devDependencies": {
+    "vite": "^5.4.11"
+  },
+  "dependencies": {
+    "@fontsource-variable/golos-text": "^5.1.0",
+    "@fontsource/cormorant-garamond": "^5.1.0",
+    "gsap": "^3.12.5",
+    "lenis": "^1.1.18"
+  }
+}

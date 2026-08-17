@@ -1,0 +1,62 @@
+/* ------------------------------------------------------------------
+   Ротонда — design tokens
+
+   Every colour here was sampled out of the delivered plates, not chosen
+   from a palette tool. The rule that holds the set together:
+
+     Wood is a MATERIAL. It appears in the footage and never in the UI.
+     The single UI accent is the sage of the frosted glass partition
+     (public/video/texture-glass.mp4), because it is the one hue the
+     clinic itself supplies.
+
+   Re-skinning: change --paper, --ink and --sage and the whole site moves.
+   ------------------------------------------------------------------ */
+
+:root {
+  /* ── ground & ink ─────────────────────────────────────────── */
+  --paper:        #F2EFE8;   /* terrazzo / wall average — never #FFF */
+  --paper-raise:  #FBFAF6;   /* cards, table rows */
+  --paper-sink:   #E7E2D7;   /* hairline fills, table head */
+
+  --ink:          #1C1F1B;   /* instrument handles — warm near-black */
+  --ink-soft:     #5A6157;   /* 5.6:1 on --paper */
+  --ink-faint:    #666D64;   /* 4.65:1 on --paper — the rail's upcoming rows
+                                are real information, not decoration, and the
+                                tasteful #8A9086 this started as read 2.85:1 */
+
+  /* ── the one accent ───────────────────────────────────────── */
+  --sage:         #3F5742;   /* 6.9:1 on --paper */
+  --sage-deep:    #2C3D2E;
+  --sage-pale:    #A8BCA9;   /* frosted-glass mid tone */
+  --sage-wash:    #E2E8DF;
+
+  /* ── dark register (the close-up sections) ────────────────── */
+  --night:        #1E211E;   /* matches the detail plates' grounds */
+  --night-raise:  #262A26;
+  --night-ink:    #E8E6DE;   /* 13:1 on --night */
+  --night-soft:   #9AA096;   /* 6.1:1 on --night */
+
+  --line:         #D8D3C7;
+  --line-night:   #383D37;
+
+  /* ── type ─────────────────────────────────────────────────── */
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:  "Onest", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --step--1: clamp(0.80rem, 0.77rem + 0.15vw, 0.88rem);
+  --step-0:  clamp(1.00rem, 0.96rem + 0.20vw, 1.12rem);
+  --step-1:  clamp(1.20rem, 1.10rem + 0.50vw, 1.50rem);
+  --step-2:  clamp(1.50rem, 1.30rem + 1.00vw, 2.20rem);
+  --step-3:  clamp(1.90rem, 1.50rem + 2.00vw, 3.20rem);
+  --display: clamp(2.40rem, 1.20rem + 6.00vw, 6.50rem);
+
+  /* ── space & shape ────────────────────────────────────────── */
+  --gut:    clamp(1.25rem, 0.9rem + 1.8vw, 3.5rem);
+  --band:   clamp(4.5rem, 3rem + 7vw, 10rem);
+  --radius: 2px;
+  --tap:    44px;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  color-scheme: light;
+}

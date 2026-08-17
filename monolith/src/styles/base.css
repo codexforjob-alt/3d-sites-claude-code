@@ -1,0 +1,453 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Reset, primitives, chrome (rail / header / cursor / grain / preloader)
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Belt and braces: `overflow-x` set on body alone does not reliably
+     propagate to the viewport, so a stray wide child still scrolls the page. */
+  overflow-x: clip;
+}
+/* Lenis drives the scroll; native smooth on top of it fights the rAF loop. */
+html.lenis { scroll-behavior: auto; }
+html.lenis body { height: auto; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--f-body);
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body.is-loading { overflow: hidden; }
+
+img, video, svg { display: block; max-width: 100%; }
+video { object-fit: cover; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  font-variation-settings: 'wdth' var(--wdth-wide);
+}
+
+p { margin: 0; }
+ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+::selection { background: var(--molten); color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--molten-hi);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── Primitives ──────────────────────────────────────────────────────────── */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5em 0.7em;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+/* Let the row wrap between items, never inside one — "WORKS / WORLDWIDE"
+   split across lines reads as a layout mistake. */
+.eyebrow span { white-space: nowrap; }
+.eyebrow i {
+  width: 14px;
+  height: 1px;
+  background: var(--line);
+  flex: none;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75em;
+  padding: 0.95em 1.6em;
+  min-height: 44px;
+  background: var(--molten);
+  color: var(--ink);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--molten);
+  border-radius: 2px;
+  transition: background var(--t-fast) var(--e-out),
+              color var(--t-fast) var(--e-out),
+              transform var(--t-fast) var(--e-out);
+}
+.btn:hover { background: var(--molten-hi); border-color: var(--molten-hi); }
+.btn:active { transform: scale(0.98); }
+.btn svg { transition: transform var(--t-mid) var(--e-out); }
+.btn:hover svg { transform: translateY(3px); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--bone);
+  border-color: var(--line);
+}
+.btn--ghost:hover {
+  background: transparent;
+  border-color: var(--molten);
+  color: var(--molten-hi);
+}
+
+/* Masked line reveal — the wrapper clips, the inner slides. */
+.line { display: block; overflow: hidden; padding-bottom: 0.04em; }
+.line__i { display: block; will-change: transform; }
+
+[data-reveal] { will-change: transform, opacity; }
+
+/* ── Timecode rail — the signature. Scroll position is the playhead. ─────── */
+
+.rail {
+  position: fixed;
+  inset-block: 0;
+  left: 0;
+  width: var(--rail-w);
+  z-index: var(--z-rail);
+  pointer-events: none;
+  display: none;
+}
+/* The horizontal reel slides plates underneath the rail. Without a scrim the
+   timecode lands on top of whatever frame happens to be passing. */
+.rail::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: 128px;
+  background: linear-gradient(90deg,
+    var(--ink) 0%, rgba(8, 7, 10, 0.86) 42%, rgba(8, 7, 10, 0.42) 72%, transparent 100%);
+}
+@media (min-width: 1024px) {
+  .rail { display: block; }
+}
+
+.rail__line {
+  position: absolute;
+  top: 16vh;
+  bottom: 16vh;
+  left: 37px;
+  width: 1px;
+  background: var(--line-soft);
+}
+.rail__fill {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 0%;
+  background: linear-gradient(180deg, var(--molten-lo), var(--molten));
+}
+.rail__head {
+  position: absolute;
+  left: 31px;
+  top: 16vh;
+  width: 13px;
+  height: 1px;
+  background: var(--molten-hi);
+  box-shadow: 0 0 12px 1px rgba(242, 197, 124, 0.55);
+}
+
+.rail__marks {
+  position: absolute;
+  inset-block: 16vh;
+  left: 0;
+  width: var(--rail-w);
+}
+.rail__mark {
+  position: absolute;
+  left: 37px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  transform: translateY(-50%);
+}
+.rail__mark::before {
+  content: '';
+  width: 7px;
+  height: 1px;
+  background: var(--line);
+  flex: none;
+  transition: background var(--t-mid) var(--e-out), width var(--t-mid) var(--e-out);
+}
+.rail__mark span {
+  font-family: var(--f-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  writing-mode: vertical-rl;
+  transition: color var(--t-mid) var(--e-out);
+}
+.rail__mark.is-on::before { background: var(--molten); width: 13px; }
+.rail__mark.is-on span { color: var(--molten-hi); }
+
+.rail__tc {
+  position: absolute;
+  left: 30px;
+  bottom: 4.5vh;
+  font-family: var(--f-mono);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--bone-dim);
+  writing-mode: vertical-rl;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.head {
+  position: fixed;
+  top: 0;
+  inset-inline: 0;
+  z-index: var(--z-head);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: clamp(0.6rem, 1.6vw, 1.2rem) var(--gutter);
+  padding-left: max(var(--gutter), var(--rail-w));
+  transition: transform 500ms var(--e-out);
+}
+.head.is-hidden { transform: translateY(-105%); }
+
+/* A difference blend would vanish against any mid-grey frame passing beneath.
+   A scrim costs one gradient and never fails. */
+.head::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba(8, 7, 10, 0.88) 0%, rgba(8, 7, 10, 0.55) 55%, transparent 100%);
+  pointer-events: none;
+}
+
+.head__mark {
+  font-family: var(--f-display);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  font-variation-settings: 'wdth' 100;
+}
+
+.head__right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.9rem, 2.2vw, 2rem);
+}
+
+.head__nav {
+  display: flex;
+  gap: clamp(1rem, 2.4vw, 2.4rem);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Motion toggle */
+.motion {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 44px;
+  padding: 0 0.85em;
+  background: transparent;
+  color: var(--bone-dim);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: color var(--t-fast) var(--e-out), border-color var(--t-fast) var(--e-out);
+}
+.motion:hover { color: var(--molten-hi); border-color: var(--molten); }
+
+/* Two bars while playing, a triangle once paused — the control shows what it
+   will do next, which is the convention every transport uses. */
+.motion__glyph {
+  width: 9px;
+  height: 10px;
+  flex: none;
+  background:
+    linear-gradient(currentColor 0 0) 0 0 / 3px 100% no-repeat,
+    linear-gradient(currentColor 0 0) 100% 0 / 3px 100% no-repeat;
+}
+:root.motion-off .motion__glyph {
+  background: currentColor;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+@media (max-width: 560px) {
+  .motion__label { display: none; }
+  .motion { padding: 0 0.75em; }
+}
+.head__nav a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;   /* touch target floor */
+  transition: color var(--t-fast) var(--e-out);
+}
+.head__nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 11px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--t-mid) var(--e-out);
+}
+.head__nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+/* ── Global grain plate ──────────────────────────────────────────────────── */
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-grain);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0;
+  transition: opacity 1.2s linear;
+}
+.grain.is-on { opacity: 0.32; }
+.grain__video { width: 100%; height: 100%; }
+
+/* ── Cursor ──────────────────────────────────────────────────────────────── */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  display: none;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+.cursor span {
+  display: block;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: var(--bone);
+  transition: transform 260ms var(--e-out), opacity 260ms var(--e-out);
+}
+.cursor.is-big span { transform: scale(4.6); opacity: 0.55; }
+
+@media (hover: hover) and (pointer: fine) {
+  .cursor { display: block; }
+}
+
+/* ── Preloader ───────────────────────────────────────────────────────────── */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-load);
+  background: var(--ink);
+  display: grid;
+  place-items: center;
+}
+
+.preloader__strip {
+  width: min(62vw, 640px);
+  height: 2px;
+  overflow: hidden;
+  opacity: 0.9;
+}
+.preloader__video {
+  width: 100%;
+  height: 260px;
+  margin-top: -129px;
+}
+
+.preloader__meta {
+  position: absolute;
+  inset-inline: var(--gutter);
+  bottom: clamp(1.5rem, 5vh, 3rem);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.22em;
+  color: var(--smoke);
+}
+.preloader__tc {
+  color: var(--molten);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-4) var(--gutter);
+  padding-left: max(var(--gutter), var(--rail-w));
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.foot__tc { color: var(--bone-dim); }
+.foot__nav { display: flex; gap: var(--sp-3); }
+.foot__nav a { transition: color var(--t-fast) var(--e-out); }
+.foot__nav a:hover { color: var(--molten-hi); }
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+  .grain { display: none; }
+  .cursor { display: none; }
+}

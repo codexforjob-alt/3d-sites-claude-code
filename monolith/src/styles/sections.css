@@ -1,0 +1,434 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Sections. Each block owns its own vertical padding — no shared .section
+   rule to be overridden, so nothing cancels out further down the cascade.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.manifesto, .work, .studio, .contact {
+  --pad-y: clamp(5.5rem, 13vh, 11rem);
+  --pad-x: max(var(--gutter), var(--rail-w));
+}
+
+/* ── 1 · HERO ────────────────────────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--sp-3);
+  padding: clamp(6rem, 15vh, 9rem) var(--gutter) clamp(2rem, 6vh, 3.5rem);
+  padding-left: max(var(--gutter), var(--rail-w));
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__stage { position: absolute; inset: 0; z-index: -1; }
+.hero__video,
+.hero__gl { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero__gl { opacity: 0; transition: opacity 600ms linear; }
+.hero__gl.is-live { opacity: 1; }
+.hero__video.is-hidden { opacity: 0; }
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(105% 80% at 76% 26%, transparent 0%, rgba(8, 7, 10, 0.90) 72%),
+    linear-gradient(180deg, rgba(8, 7, 10, 0.70) 0%, rgba(8, 7, 10, 0.30) 26%, rgba(8, 7, 10, 0.95) 92%),
+    linear-gradient(90deg, rgba(8, 7, 10, 0.85) 0%, transparent 46%);
+}
+
+.hero__body { grid-row: 2; align-self: end; display: grid; gap: clamp(1.5rem, 4vh, 2.75rem); }
+
+.hero__title {
+  font-size: var(--fs-mega);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  /* Rests at full width. The intro animates *from* --wdth-squeeze, so the
+     headline is correct even when that animation never runs — reduced motion,
+     a failed bundle, or JS off. */
+  font-variation-settings: 'wdth' var(--wdth-wide);
+}
+.hero__title .line__i { color: var(--bone); }
+.hero__title .line:last-child .line__i { color: var(--molten-hi); }
+
+.hero__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-4);
+  padding-top: clamp(1rem, 3vh, 2rem);
+  border-top: 1px solid var(--line-soft);
+}
+.hero__lede { max-width: 30rem; color: var(--bone-dim); text-wrap: pretty; }
+
+.hero__scroll {
+  grid-row: 3;
+  justify-self: end;
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+/* ── 2 · MANIFESTO ───────────────────────────────────────────────────────── */
+
+.manifesto { position: relative; }
+
+.manifesto__pin {
+  position: relative;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--ink);
+}
+.manifesto__plate { position: absolute; inset: 0; }
+.plate__video { width: 100%; height: 100%; }
+.plate__veil {
+  position: absolute;
+  inset: 0;
+  /* The studio plate carries a bright haze; the headline has to clear 4.5:1
+     against its lightest patch, not its average. */
+  background:
+    radial-gradient(85% 65% at 50% 46%, rgba(8, 7, 10, 0.74) 0%, rgba(8, 7, 10, 0.96) 100%),
+    linear-gradient(180deg, rgba(8, 7, 10, 0.55), rgba(8, 7, 10, 0.55));
+}
+
+.manifesto__lines {
+  position: relative;
+  display: grid;
+  gap: clamp(0.1rem, 0.6vh, 0.5rem);
+  padding-inline: var(--gutter);
+  text-align: center;
+}
+.manifesto__l {
+  font-family: var(--f-display);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  font-variation-settings: 'wdth' 88;
+  opacity: 0.14;
+  transition: opacity 400ms var(--e-out);
+}
+.manifesto__l.is-lit { opacity: 1; }
+.manifesto__l--gold.is-lit { color: var(--molten-hi); }
+
+.creed {
+  display: grid;
+  gap: clamp(2rem, 5vh, 3.5rem);
+  padding: var(--pad-y) var(--gutter);
+  padding-left: var(--pad-x);
+  border-top: 1px solid var(--line-soft);
+}
+.creed__h {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  font-variation-settings: 'wdth' 92;
+  max-width: 18ch;
+}
+.creed__cols {
+  display: grid;
+  gap: clamp(1.75rem, 3.5vw, 3rem);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  color: var(--bone-dim);
+  text-wrap: pretty;
+}
+.creed__cols p { position: relative; padding-top: var(--sp-2); border-top: 1px solid var(--line); }
+
+/* ── 3 · WORK (horizontal reel) ──────────────────────────────────────────── */
+
+/* A pinned section goes position:fixed — without an opaque ground the sections
+   still scrolling behind it bleed straight through. */
+.work { position: relative; background: var(--ink); }
+.work__pin { height: 100svh; overflow: hidden; background: var(--ink); }
+
+.work__track {
+  display: flex;
+  align-items: center;
+  gap: clamp(3rem, 7vw, 8rem);
+  height: 100%;
+  padding-inline: var(--pad-x) var(--gutter);
+  width: max-content;
+}
+.panel { flex: none; }
+
+.work__intro { display: grid; gap: var(--sp-3); max-width: 26rem; }
+.work__h {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 112;
+}
+.work__note { color: var(--bone-dim); max-width: 24rem; text-wrap: pretty; }
+
+.case { display: flex; align-items: flex-end; gap: clamp(1.5rem, 3vw, 3rem); }
+
+.case__frame {
+  position: relative;
+  width: clamp(230px, 25vw, 370px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  background: var(--ink-raised);
+  border-radius: 2px;
+}
+.case__video {
+  width: 100%;
+  height: 100%;
+  transform: scale(1.04);
+  transition: transform 900ms var(--e-out), filter 900ms var(--e-out);
+  filter: saturate(0.85);
+}
+.case:hover .case__video { transform: scale(1); filter: saturate(1); }
+
+.case__idx {
+  position: absolute;
+  top: var(--sp-2);
+  left: var(--sp-2);
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.16em;
+  color: var(--bone);
+  mix-blend-mode: difference;
+}
+
+.case__meta { width: clamp(200px, 21vw, 300px); display: grid; gap: var(--sp-2); }
+.case__client {
+  font-family: var(--f-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--molten);
+}
+.case__title {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 104;
+}
+.case__specs { display: grid; gap: 0.55rem; padding-top: var(--sp-1); }
+.case__specs > div {
+  display: grid;
+  gap: 0.1rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--line-soft);
+}
+.case__specs dt {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.case__specs dd { font-size: var(--fs-sm); color: var(--bone-dim); line-height: 1.45; }
+
+.work__end { display: grid; gap: var(--sp-2); max-width: 20rem; justify-items: start; }
+.work__endnum {
+  font-family: var(--f-display);
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 800;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  font-variation-settings: 'wdth' 74;
+  color: var(--molten);
+}
+.work__endtxt { color: var(--bone-dim); text-wrap: pretty; }
+
+/* Horizontal pinning is hostile on touch — below 900px the reel stacks. */
+@media (max-width: 899px) {
+  .work__pin { height: auto; overflow: visible; }
+  .work__track {
+    flex-direction: column;
+    align-items: stretch;
+    width: auto;
+    gap: clamp(3rem, 9vh, 5rem);
+    padding: var(--pad-y) var(--gutter);
+  }
+  .case { flex-direction: column; align-items: stretch; }
+  .case__frame { width: 100%; max-width: 26rem; }
+  .case__meta { width: 100%; max-width: 32rem; }
+  .work__intro, .work__end { max-width: none; }
+}
+
+/* ── 4 · INK WIPE ────────────────────────────────────────────────────────── */
+
+.wipe {
+  position: relative;
+  height: 165svh;
+  background: var(--ink);
+  /* The plate is scrubbed from scale 1.28 — `clip` contains the overflow
+     without turning this into a scroll container, so the sticky child still
+     resolves against the viewport. `hidden` here would kill the stick. */
+  overflow: clip;
+}
+.wipe__video {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  opacity: 0;
+  /* Inverted + warmed: the ink reads as molten gold blooming out of black,
+     which is the same event as the hero drop, played in reverse. */
+  filter: invert(1) sepia(1) saturate(2.6) hue-rotate(-14deg) brightness(0.86);
+  mix-blend-mode: screen;
+}
+
+/* ── 5 · STUDIO ──────────────────────────────────────────────────────────── */
+
+.studio { padding-block: var(--pad-y); }
+
+.studio__grid {
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  align-items: end;
+  padding-inline: var(--pad-x) var(--gutter);
+}
+@media (max-width: 899px) {
+  .studio__grid { grid-template-columns: 1fr; }
+}
+
+.studio__portrait { margin: 0; display: grid; gap: var(--sp-2); }
+.studio__video {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  /* The plate was framed 16:9 with the left third left empty for a title card.
+     Cropping to 4:3 from centre strands that emptiness — bias the window right
+     so the subject sits where the eye expects it. */
+  object-position: 64% center;
+  background: var(--ink-raised);
+  border-radius: 2px;
+}
+.studio__portrait figcaption {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+
+.studio__body { display: grid; gap: clamp(1.25rem, 3vh, 2rem); }
+.studio__h {
+  font-size: var(--fs-xl);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 108;
+}
+.studio__p { max-width: var(--measure); color: var(--bone-dim); text-wrap: pretty; }
+
+.facts { display: grid; gap: 0; max-width: var(--measure); }
+.facts li {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: var(--sp-2);
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+.facts li:last-child { border-bottom: 1px solid var(--line-soft); }
+.facts__k {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  padding-top: 0.28em;
+}
+.facts__v { font-size: var(--fs-sm); color: var(--bone-dim); }
+@media (max-width: 520px) {
+  .facts li { grid-template-columns: 1fr; gap: 0.2rem; }
+}
+
+.ticker {
+  margin-top: clamp(3.5rem, 9vh, 7rem);
+  padding-block: var(--sp-3);
+  border-block: 1px solid var(--line-soft);
+  overflow: hidden;
+}
+.ticker__row {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  width: max-content;
+  font-family: var(--f-display);
+  font-size: clamp(1.6rem, 3.4vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  font-variation-settings: 'wdth' 82;
+  color: var(--ash);
+  white-space: nowrap;
+  will-change: transform;
+}
+.ticker__row i { color: var(--molten-lo); font-style: normal; }
+
+/* ── 6 · CONTACT ─────────────────────────────────────────────────────────── */
+
+.contact {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-content: end;
+  gap: clamp(2rem, 5vh, 3.5rem);
+  /* Tighter than the other blocks so the headline, the three rows and the note
+     all land inside one screen — a closing CTA you have to scroll is not one. */
+  padding: clamp(4rem, 9vh, 6.5rem) var(--gutter);
+  padding-left: var(--pad-x);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.contact__stage { position: absolute; inset: 0; z-index: -1; }
+.contact__video { width: 100%; height: 100%; transform: scale(1.12); will-change: transform; }
+.contact__veil {
+  position: absolute;
+  inset: 0;
+  /* Dawn is the brightest plate in the reel. It needs the heaviest veil, or the
+     headline and the contact rows sit on peach and stop being readable. */
+  background:
+    linear-gradient(180deg,
+      var(--ink) 0%, rgba(8, 7, 10, 0.62) 26%, rgba(8, 7, 10, 0.90) 62%, var(--ink) 96%),
+    linear-gradient(90deg, rgba(8, 7, 10, 0.88) 0%, rgba(8, 7, 10, 0.30) 58%, transparent 100%);
+}
+
+.contact__body { display: grid; gap: clamp(2rem, 5vh, 3.25rem); }
+
+.contact__h {
+  font-size: clamp(2.4rem, 7vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  font-variation-settings: 'wdth' var(--wdth-wide);
+}
+.contact__h .line:last-child .line__i { color: var(--molten-hi); }
+
+.contact__rows { display: grid; max-width: 46rem; }
+.crow {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr auto;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 56px;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
+  transition: color var(--t-fast) var(--e-out), padding-left var(--t-mid) var(--e-out);
+}
+.crow:last-child { border-bottom: 1px solid var(--line); }
+.crow:hover { color: var(--molten-hi); padding-left: 0.6rem; }
+.crow__k {
+  font-family: var(--f-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--smoke);
+}
+.crow__v { font-size: var(--fs-md); }
+.crow svg { opacity: 0.4; transition: opacity var(--t-fast) var(--e-out); }
+.crow:hover svg { opacity: 1; }
+@media (max-width: 520px) {
+  .crow { grid-template-columns: 1fr auto; }
+  .crow__k { grid-column: 1 / -1; }
+}
+
+.contact__note { max-width: 30rem; color: var(--bone-dim); font-size: var(--fs-sm); text-wrap: pretty; }

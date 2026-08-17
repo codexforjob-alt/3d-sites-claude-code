@@ -1,0 +1,7 @@
+# Vercel runs the build itself, so shipping a local dist/ just doubles a 22 MB
+# upload for no reason.
+dist
+
+# Screenshots from the verification pass.
+*.png
+.playwright-mcp

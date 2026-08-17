@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Monolith — Film Studio</title>
+<meta name="description" content="Monolith is a six-person film studio. Motion control, in-house grade, no account managers." />
+<meta name="theme-color" content="#08070A" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+<!-- Without JS the preloader would sit over a locked page forever. -->
+<noscript><style>
+  .preloader, .cursor, .grain { display: none !important; }
+  body.is-loading { overflow: auto !important; }
+</style></noscript>
+
+<meta property="og:title" content="Monolith — Film Studio" />
+<meta property="og:description" content="Motion control, in-house grade, no account managers." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="/video/hero-loop.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Instrument+Sans:wght@400;500&family=Martian+Mono:wght@300;400;500&display=swap" />
+</head>
+
+<body>
+
+<!-- ══ PRELOADER ═══════════════════════════════════════════════════════════ -->
+<div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Loading">
+  <div class="preloader__strip">
+    <video class="preloader__video" muted playsinline autoplay loop aria-hidden="true"
+           poster="/video/loader-shimmer.jpg">
+      <source src="/video/loader-shimmer.webm" type="video/webm" />
+      <source src="/video/loader-shimmer.mp4" type="video/mp4" />
+    </video>
+  </div>
+  <div class="preloader__meta">
+    <span class="preloader__mark">MONOLITH</span>
+    <span class="preloader__tc" id="preloaderTc">00:00:00:00</span>
+  </div>
+</div>
+
+
+<!-- ══ TIMECODE RAIL — the reel's playhead ═════════════════════════════════ -->
+<aside class="rail" id="rail" aria-hidden="true">
+  <div class="rail__line"><span class="rail__fill" id="railFill"></span></div>
+  <div class="rail__head" id="railHead"></div>
+  <ol class="rail__marks" id="railMarks"></ol>
+  <span class="rail__tc" id="railTc">00:00:00:00</span>
+</aside>
+
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════════ -->
+<header class="head" id="head">
+  <a class="head__mark" href="#top" aria-label="Monolith, back to top">MONOLITH</a>
+  <div class="head__right">
+    <nav class="head__nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#studio">Studio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <!-- The plates loop indefinitely; WCAG 2.2.2 wants a way to stop them. -->
+    <button class="motion" id="motionToggle" type="button" aria-pressed="false" aria-label="Pause all motion">
+      <span class="motion__glyph" aria-hidden="true"></span>
+      <span class="motion__label">Pause</span>
+    </button>
+  </div>
+</header>
+
+
+<main id="top">
+
+<!-- ══ 1 · HERO ════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero" data-tc="00:00:00:00" data-label="Reel">
+  <div class="hero__stage">
+    <canvas class="hero__gl" id="heroGl" aria-hidden="true"></canvas>
+    <video class="hero__video" id="heroVideo" muted playsinline loop preload="auto"
+           poster="/video/hero-loop.jpg" aria-hidden="true">
+      <source src="/video/hero-loop.webm" type="video/webm" />
+      <source src="/video/hero-loop.mp4" type="video/mp4" />
+    </video>
+    <div class="hero__veil"></div>
+  </div>
+
+  <div class="hero__body">
+    <p class="eyebrow" data-reveal>
+      <span>Film studio</span><i></i><span>Est. 2019</span><i></i><span>Works worldwide</span>
+    </p>
+
+    <h1 class="hero__title" id="heroTitle">
+      <span class="line"><span class="line__i">Nothing</span></span>
+      <span class="line"><span class="line__i">here is an</span></span>
+      <span class="line"><span class="line__i">accident</span></span>
+    </h1>
+
+    <div class="hero__foot">
+      <p class="hero__lede" data-reveal>
+        Monolith is a six-person film studio. We make thirty seconds
+        that people finish watching.
+      </p>
+      <a class="btn" href="#work" data-reveal>
+        <span>See the reel</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
+          <path d="M8 1v14M8 15l-5-5M8 15l5-5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <span class="hero__scroll" aria-hidden="true">Scroll</span>
+</section>
+
+
+<!-- ══ 2 · MANIFESTO — pinned, text scrubs over the studio plate ═══════════ -->
+<section class="manifesto" id="manifesto" data-tc="00:00:08:00" data-label="Method">
+  <div class="manifesto__pin">
+    <div class="manifesto__plate">
+      <video class="plate__video" data-lazy-video muted playsinline loop
+             poster="/video/reel-studio.jpg" aria-hidden="true">
+        <source data-src="/video/reel-studio.webm" type="video/webm" />
+        <source data-src="/video/reel-studio.mp4" type="video/mp4" />
+      </video>
+      <div class="plate__veil"></div>
+    </div>
+
+    <div class="manifesto__lines">
+      <p class="manifesto__l" data-mline>A shot is a decision.</p>
+      <p class="manifesto__l" data-mline>Where the light falls.</p>
+      <p class="manifesto__l" data-mline>When the camera stops.</p>
+      <p class="manifesto__l manifesto__l--gold" data-mline>What you never show.</p>
+    </div>
+  </div>
+
+  <div class="creed">
+    <h2 class="creed__h">How we actually work</h2>
+    <div class="creed__cols">
+      <p>
+        We shoot motion control because take two should be identical to take one.
+        When a client changes their mind at the grade, we can go back and match the
+        move exactly — no reshoot, no argument.
+      </p>
+      <p>
+        We grade in-house. Handing the footage to a third party is where most films
+        lose their nerve; the contrast gets safe, the blacks lift, and the thing you
+        shot at 2 a.m. turns into stock.
+      </p>
+      <p>
+        Six people, one room. You talk to the director, the DP and the colourist.
+        There is no account manager between you and the person holding the camera.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 3 · WORK — horizontal reel ══════════════════════════════════════════ -->
+<section class="work" id="work" data-tc="00:00:24:00" data-label="Work">
+  <div class="work__pin">
+    <div class="work__track" id="workTrack">
+
+      <header class="work__intro panel">
+        <p class="eyebrow"><span>Selected</span><i></i><span>Three of nine</span></p>
+        <h2 class="work__h">Recent<br/>work</h2>
+        <p class="work__note">
+          Drag or scroll sideways. Full case films are available on request —
+          most of what we shoot is under embargo until launch.
+        </p>
+      </header>
+
+      <article class="case panel" data-case>
+        <div class="case__frame">
+          <video class="case__video" data-lazy-video muted playsinline loop
+                 poster="/video/case-01-fashion.jpg" aria-hidden="true">
+            <source data-src="/video/case-01-fashion.webm" type="video/webm" />
+            <source data-src="/video/case-01-fashion.mp4" type="video/mp4" />
+          </video>
+          <span class="case__idx">01</span>
+        </div>
+        <div class="case__meta">
+          <p class="case__client">Sable</p>
+          <h3 class="case__title">Second Skin</h3>
+          <dl class="case__specs">
+            <div><dt>Format</dt><dd>Campaign film, 60s + six cutdowns</dd></div>
+            <div><dt>Shot</dt><dd>Paris, three days, one stage</dd></div>
+            <div><dt>Rig</dt><dd>Venice 2 · 120fps · Bolt arm</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case panel" data-case>
+        <div class="case__frame">
+          <video class="case__video" data-lazy-video muted playsinline loop
+                 poster="/video/case-02-architecture.jpg" aria-hidden="true">
+            <source data-src="/video/case-02-architecture.webm" type="video/webm" />
+            <source data-src="/video/case-02-architecture.mp4" type="video/mp4" />
+          </video>
+          <span class="case__idx">02</span>
+        </div>
+        <div class="case__meta">
+          <p class="case__client">Béton Civic</p>
+          <h3 class="case__title">Weight</h3>
+          <dl class="case__specs">
+            <div><dt>Format</dt><dd>Brand film, 90s</dd></div>
+            <div><dt>Shot</dt><dd>Marseille, golden hour, four mornings</dd></div>
+            <div><dt>Rig</dt><dd>Monstro 8K · 24mm tilt-shift · technocrane</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case panel" data-case>
+        <div class="case__frame">
+          <video class="case__video" data-lazy-video muted playsinline loop
+                 poster="/video/case-03-automotive.jpg" aria-hidden="true">
+            <source data-src="/video/case-03-automotive.webm" type="video/webm" />
+            <source data-src="/video/case-03-automotive.mp4" type="video/mp4" />
+          </video>
+          <span class="case__idx">03</span>
+        </div>
+        <div class="case__meta">
+          <p class="case__client">Kestrel Motors</p>
+          <h3 class="case__title">Cold Start</h3>
+          <dl class="case__specs">
+            <div><dt>Format</dt><dd>Launch film, 45s + stills pull</dd></div>
+            <div><dt>Shot</dt><dd>Reykjavík, night, rain rig</dd></div>
+            <div><dt>Rig</dt><dd>Phantom · 1000fps · motion control</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <aside class="work__end panel">
+        <p class="work__endnum">+6</p>
+        <p class="work__endtxt">
+          more films for clients who would rather we didn't list them here.
+        </p>
+        <a class="btn btn--ghost" href="#contact">
+          <span>Ask for the full reel</span>
+        </a>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 4 · INK WIPE ════════════════════════════════════════════════════════ -->
+<section class="wipe" id="wipe" aria-hidden="true">
+  <video class="wipe__video" data-lazy-video muted playsinline loop
+         poster="/video/transition-ink.jpg">
+    <source data-src="/video/transition-ink.webm" type="video/webm" />
+    <source data-src="/video/transition-ink.mp4" type="video/mp4" />
+  </video>
+</section>
+
+
+<!-- ══ 5 · STUDIO ══════════════════════════════════════════════════════════ -->
+<section class="studio" id="studio" data-tc="00:00:48:00" data-label="Studio">
+  <div class="studio__grid">
+    <figure class="studio__portrait">
+      <video class="studio__video" data-lazy-video muted playsinline loop
+             poster="/video/about-portrait.jpg" aria-hidden="true">
+        <source data-src="/video/about-portrait.webm" type="video/webm" />
+        <source data-src="/video/about-portrait.mp4" type="video/mp4" />
+      </video>
+      <figcaption>Ilse Warmer, director · on the Béton Civic grade, March</figcaption>
+    </figure>
+
+    <div class="studio__body">
+      <p class="eyebrow" data-reveal><span>The studio</span></p>
+      <h2 class="studio__h" data-reveal>Six people<br/>and a stage</h2>
+
+      <p class="studio__p" data-reveal>
+        We started in 2019 with a rented Bolt arm and one client who let us
+        get it wrong. Everything since has been built around keeping the
+        crew small enough that nobody has to explain the idea twice.
+      </p>
+
+      <ul class="facts" data-reveal>
+        <li><span class="facts__k">Based</span><span class="facts__v">Lisbon · stage in Almada</span></li>
+        <li><span class="facts__k">Crew</span><span class="facts__v">Six full-time, freelance on scale</span></li>
+        <li><span class="facts__k">In-house</span><span class="facts__v">Direction · DP · Motion control · Grade</span></li>
+        <li><span class="facts__k">Booking</span><span class="facts__v">Four to six weeks out</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__row" id="tickerRow">
+      <span>Motion control</span><i>·</i><span>In-house grade</span><i>·</i>
+      <span>High speed</span><i>·</i><span>Anamorphic</span><i>·</i>
+      <span>Stage build</span><i>·</i><span>Table-top</span><i>·</i>
+      <span>Aerial</span><i>·</i><span>Colour science</span><i>·</i>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 6 · CONTACT ═════════════════════════════════════════════════════════ -->
+<section class="contact" id="contact" data-tc="00:01:04:00" data-label="Contact">
+  <div class="contact__stage">
+    <video class="contact__video" data-lazy-video muted playsinline loop
+           poster="/video/cta-horizon.jpg" aria-hidden="true">
+      <source data-src="/video/cta-horizon.webm" type="video/webm" />
+      <source data-src="/video/cta-horizon.mp4" type="video/mp4" />
+    </video>
+    <div class="contact__veil"></div>
+  </div>
+
+  <div class="contact__body">
+    <h2 class="contact__h" id="contactTitle">
+      <span class="line"><span class="line__i">Bring us</span></span>
+      <span class="line"><span class="line__i">something</span></span>
+      <span class="line"><span class="line__i">difficult</span></span>
+    </h2>
+
+    <div class="contact__rows">
+      <a class="crow" href="mailto:hello@monolith.studio">
+        <span class="crow__k">New work</span>
+        <span class="crow__v">hello@monolith.studio</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 14L14 2M14 2H5M14 2v9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+      <a class="crow" href="tel:+351210000000">
+        <span class="crow__k">Studio</span>
+        <span class="crow__v">+351 210 000 000</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 14L14 2M14 2H5M14 2v9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+      <a class="crow" href="#work">
+        <span class="crow__k">Stage</span>
+        <span class="crow__v">Rua da Cintura 44, Almada</span>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2 14L14 2M14 2H5M14 2v9" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      </a>
+    </div>
+
+    <p class="contact__note">
+      Send a deck, a mood, or two sentences. We answer everything within a
+      working day, including the ones we turn down.
+    </p>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer class="foot">
+  <span class="foot__tc">00:01:20:00 · END OF REEL</span>
+  <span class="foot__c">© 2026 Monolith Film Studio Lda.</span>
+  <nav class="foot__nav" aria-label="Social">
+    <a href="#work">Instagram</a>
+    <a href="#work">Vimeo</a>
+    <a href="#work">LinkedIn</a>
+  </nav>
+</footer>
+
+
+<!-- ══ GLOBAL GRAIN — the plate that ties every shot together ══════════════ -->
+<div class="grain" id="grain" aria-hidden="true">
+  <video class="grain__video" muted playsinline loop poster="">
+    <source data-src="/video/texture-grain.webm" type="video/webm" />
+    <source data-src="/video/texture-grain.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<div class="cursor" id="cursor" aria-hidden="true"><span></span></div>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

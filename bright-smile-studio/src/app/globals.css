@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ink: #0a3a44;
+    --ink-soft: #45646c;
+    --brand: #0e8e9e;
+    --brand-deep: #07606c;
+    --mint: #c6efe9;
+    --mint-50: #edfaf7;
+    --blue: #3f6fe0;
+    --blue-50: #eef3fe;
+    --mist: #f3fafb;
+    --line: #dbeaec;
+  }
+
+  html {
+    /* No CSS smooth scrolling: it fights ScrollTrigger's pinned sections. */
+    scroll-padding-top: 5.5rem;
+  }
+
+  body {
+    background: #fff;
+    color: var(--ink-soft);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--ink);
+    font-family: var(--font-display), system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  /* One consistent focus ring everywhere, never removed. */
+  :focus-visible {
+    outline: 3px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--mint);
+    color: var(--ink);
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-[1200px] px-5 sm:px-8 lg:px-10;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    @apply text-[11px] uppercase tracking-[0.18em] text-brand-deep;
+  }
+
+  .h-display {
+    @apply text-[clamp(2.25rem,6vw,4.5rem)] font-bold leading-[1.02];
+  }
+
+  .h-section {
+    @apply text-[clamp(1.75rem,3.6vw,3rem)] font-bold leading-[1.08];
+  }
+
+  .lede {
+    @apply text-[clamp(1rem,1.4vw,1.25rem)] leading-[1.65] text-ink-soft;
+  }
+}
+
+/* Elements revealed by GSAP start hidden, but only when JS + motion are on.
+   The `.js-motion` flag is set by MotionProvider, so no-JS users see content. */
+.js-motion [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-motion [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

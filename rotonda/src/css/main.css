@@ -1,0 +1,669 @@
+@import "./tokens.css";
+
+/* ==================================================================
+   Base
+   ================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  /* clip on BOTH html and body — body alone does not reliably reach
+     the viewport, and a scaled plate then opens a horizontal scrollbar */
+  overflow-x: clip;
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.62;
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.is-loading body { overflow: hidden; }
+
+img, video { max-width: 100%; display: block; }
+h1, h2, h3 { margin: 0; font-weight: 400; line-height: 1.08; }
+p { margin: 0 0 1em; }
+ol, ul { margin: 0; padding: 0; list-style: none; }
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+::selection { background: var(--sage-pale); color: var(--ink); }
+
+.skip {
+  position: absolute; left: var(--gut); top: -100px; z-index: 200;
+  display: inline-flex; align-items: center; min-height: var(--tap);
+  background: var(--ink); color: var(--paper);
+  padding: 0.75rem 1.1rem; font-size: var(--step--1);
+  transition: top 0.2s var(--ease);
+}
+.skip:focus { top: 0.75rem; }
+
+/* ==================================================================
+   Type primitives
+   ================================================================== */
+
+.display {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: var(--display);
+  line-height: 0.98;
+  letter-spacing: -0.018em;
+  margin: 0.28em 0 0.42em;
+}
+.display--sm { font-size: clamp(2.1rem, 1.1rem + 4.4vw, 4.6rem); }
+
+/* Masked line reveal: the RESTING state is the finished state, so the
+   headline is correct with JS off, on a failed bundle, and under
+   reduced motion. The animation runs *from* the offset. */
+.display .line { display: block; overflow: hidden; }
+.display .line > span { display: block; white-space: nowrap; }
+
+.eyebrow {
+  font-size: var(--step--1);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.lede {
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 34ch;
+  color: var(--ink-soft);
+}
+
+.num { font-variant-numeric: tabular-nums; }
+
+/* ==================================================================
+   Buttons & links
+   ================================================================== */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: var(--tap); min-width: var(--tap);
+  padding: 0.8rem 1.6rem;
+  background: var(--sage); color: #F7F5F0;      /* 7.3:1 */
+  font: 500 var(--step-0)/1 var(--sans);
+  text-decoration: none; border: 0; border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.22s var(--ease), transform 0.22s var(--ease);
+}
+.btn:hover { background: var(--sage-deep); }
+.btn:active { transform: translateY(1px); }
+.btn--sm { padding: 0.55rem 1.05rem; font-size: var(--step--1); }
+.btn--lg { padding: 1.05rem 2.2rem; font-size: var(--step-1); }
+
+.link {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  color: var(--ink-soft); font-size: var(--step-0);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+.link:hover { color: var(--ink); border-color: var(--sage); }
+
+/* ==================================================================
+   Boot curtain
+   ================================================================== */
+
+.boot {
+  position: fixed; inset: 0; z-index: 300;
+  display: grid; place-items: center;
+  background: var(--paper);
+}
+.boot__mark {
+  font-family: var(--serif); font-size: var(--step-2);
+  letter-spacing: 0.02em; color: var(--ink);
+  overflow: hidden;
+}
+.boot__mark span { display: block; }
+.boot.is-gone { opacity: 0; pointer-events: none; transition: opacity 0.5s var(--ease); }
+
+/* ==================================================================
+   Header
+   ================================================================== */
+
+.head {
+  position: fixed; inset: 0 0 auto; z-index: 100;
+  display: flex; align-items: center; gap: var(--gut);
+  padding: 0.7rem var(--gut);
+  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  backdrop-filter: blur(14px) saturate(1.1);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+.head.is-stuck { border-bottom-color: var(--line); }
+
+/* Over the two dark sections the paper header reads as a bright bar sitting
+   on top of the page rather than part of it. */
+.head--dark { background: color-mix(in srgb, var(--night) 82%, transparent); }
+.head--dark.is-stuck { border-bottom-color: var(--line-night); }
+.head--dark .head__mark { color: var(--night-ink); }
+.head--dark .head__nav a { color: var(--night-soft); }
+.head--dark .head__nav a:hover { color: var(--night-ink); }
+.head--dark .motion { color: var(--night-soft); border-color: var(--line-night); }
+.head--dark .motion:hover { color: var(--night-ink); border-color: var(--night-soft); }
+.head--dark .motion[aria-pressed="false"] .motion__dot { background: var(--line-night); }
+.head__mark {
+  font-family: var(--serif); font-size: var(--step-1);
+  text-decoration: none; letter-spacing: 0.01em;
+  display: inline-flex; align-items: center; min-height: var(--tap);
+}
+.head__nav { display: none; gap: 1.6rem; margin-inline: auto; }
+.head__nav a {
+  display: inline-flex; align-items: center;
+  min-height: var(--tap);
+  font-size: var(--step--1); color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+.head__nav a:hover { color: var(--ink); }
+.head__side { display: flex; align-items: center; gap: 0.6rem; margin-left: auto; }
+
+.motion {
+  display: none; align-items: center; gap: 0.5rem;
+  min-height: var(--tap); padding: 0 0.85rem;
+  background: none; border: 1px solid var(--line); border-radius: var(--radius);
+  color: var(--ink-soft); font: 400 var(--step--1)/1 var(--sans);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+.motion:hover { color: var(--ink); border-color: var(--ink-faint); }
+.motion__dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--sage); flex: none;
+  transition: background 0.2s var(--ease);
+}
+.motion[aria-pressed="false"] .motion__dot { background: var(--line); }
+
+/* ==================================================================
+   Hero
+   ================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: calc(var(--gut) * 2.4) var(--gut) var(--gut);
+  overflow: clip;
+  isolation: isolate;
+}
+.hero__plate { position: absolute; inset: 0; z-index: -2; background: var(--paper-sink); }
+.hero .plate {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero .plate--b { opacity: 0; }
+
+/* The hero plate is near-white throughout, so the scrim LIGHTENS rather
+   than darkens. Tuned against the brightest frame the clip reaches. */
+/* z-index is resolved inside .hero__plate, which is its own stacking context.
+   A negative value here paints the scrim UNDER the videos and does nothing. */
+.hero__scrim {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(100deg,
+      color-mix(in srgb, var(--paper) 93%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 82%, transparent) 25%,
+      color-mix(in srgb, var(--paper) 24%, transparent) 45%,
+      transparent 60%),
+    linear-gradient(to top,
+      color-mix(in srgb, var(--paper) 70%, transparent) 0%,
+      transparent 15%);
+}
+.hero__copy { max-width: 46rem; }
+/* Hierarchy in the hero comes from size, not from a lighter ink: the plate
+   underneath is busy terrazzo and a muted grey reads as washed out on it. */
+.hero .lede { color: var(--ink); font-size: var(--step-0); max-width: 40ch; }
+.hero__foot { color: var(--ink); }
+/* Measured 3.6:1 against the plate's darker patches at --ink-soft. Small
+   uppercase text over moving video has no margin for a tasteful grey. */
+.hero .eyebrow { color: var(--ink); }
+.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.6rem; margin-top: 2rem; }
+.hero__foot {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  margin-top: clamp(2.5rem, 6vh, 5rem);
+  padding-top: 1rem; border-top: 1px solid var(--line);
+  font-size: var(--step--1); color: var(--ink-soft);
+}
+.hero__scrollcue { letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* ==================================================================
+   Manifesto
+   ================================================================== */
+
+.say {
+  padding: var(--band) var(--gut);
+  display: grid; gap: clamp(2rem, 5vw, 4.5rem);
+  border-bottom: 1px solid var(--line);
+}
+.say__text {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); line-height: 1.16;
+  letter-spacing: -0.012em;
+  max-width: 22ch; margin: 0;
+}
+.say__note { max-width: 44ch; color: var(--ink-soft); }
+.say__note p { margin: 0; }
+
+/* ==================================================================
+   The walk — mobile-first stacked; pinned split only when JS opts in
+   ================================================================== */
+
+.walk { padding: var(--band) 0; background: var(--paper); }
+.walk__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+  padding: 0 var(--gut); margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  max-width: 20ch;
+}
+.walk__rail { display: none; }
+.walk__panel { margin-bottom: clamp(3rem, 8vw, 5rem); }
+.walk__panel:last-child { margin-bottom: 0; }
+.walk__plate {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  background: var(--paper-sink);
+}
+.walk__text { padding: 1.4rem var(--gut) 0; max-width: 46ch; }
+.walk__text h3 {
+  font-family: var(--serif); font-size: var(--step-2);
+  margin-bottom: 0.5em;
+}
+.walk__text p { color: var(--ink-soft); margin: 0; }
+
+/* ==================================================================
+   Frosted-glass transition — paper goes in, night comes out
+   ================================================================== */
+
+.wipe {
+  position: relative;
+  height: 78svh;
+  overflow: clip;
+  background: var(--paper);
+}
+.wipe__plate {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
+}
+.wipe::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom,
+      var(--paper) 0%,
+      color-mix(in srgb, var(--paper) 55%, transparent) 22%,
+      transparent 46%,
+      color-mix(in srgb, var(--night) 62%, transparent) 76%,
+      var(--night) 94%,
+      var(--night) 100%);
+}
+
+/* ==================================================================
+   Craft — the dark register
+   ================================================================== */
+
+.craft {
+  background: var(--night); color: var(--night-ink);
+  padding: 0 var(--gut) var(--band);
+}
+.craft__head { max-width: 52rem; padding-top: clamp(1rem, 3vw, 2rem); }
+.craft__title {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+  max-width: 18ch; margin-bottom: 0.7em;
+}
+.craft__lede { color: var(--night-soft); max-width: 42ch; font-size: var(--step-1); line-height: 1.5; }
+.craft__grid {
+  display: grid; gap: clamp(2.5rem, 5vw, 3.5rem);
+  margin-top: clamp(3rem, 8vw, 5.5rem);
+}
+.craft__item { margin: 0; }
+.craft__plate {
+  aspect-ratio: 4 / 5; overflow: clip;
+  background: var(--night-raise); border-radius: var(--radius);
+}
+.craft__plate video { width: 100%; height: 100%; object-fit: cover; }
+.craft__item figcaption { padding-top: 1.3rem; }
+.craft__item h3 {
+  font-family: var(--serif); font-size: var(--step-2);
+  margin-bottom: 0.45em;
+}
+.craft__item p { color: var(--night-soft); margin: 0; }
+
+/* ==================================================================
+   Prices — the ledger. No video, no text over video.
+   ================================================================== */
+
+.prices { padding: var(--band) var(--gut); border-bottom: 1px solid var(--line); }
+.prices__intro { display: grid; gap: 1.2rem; margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.prices__intro h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+}
+.prices__intro p { color: var(--ink-soft); max-width: 46ch; margin: 0; }
+
+.prices__table { border-top: 1px solid var(--ink); }
+.prices__row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.2rem 1rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.prices__row--head { display: none; }
+.prices__row b { font-weight: 500; display: block; }
+.prices__row i {
+  font-style: normal; display: block;
+  font-size: var(--step--1); color: var(--ink-soft); margin-top: 0.15em;
+}
+.prices__row [role="cell"]:nth-child(2) {
+  font-size: var(--step--1); color: var(--ink-soft);
+  grid-column: 1; order: 3;
+}
+.prices__row .num { font-weight: 500; white-space: nowrap; align-self: start; }
+.prices__foot {
+  margin: clamp(2rem, 5vw, 3rem) 0 0;
+  max-width: 46ch; color: var(--ink-soft); font-size: var(--step--1);
+}
+
+/* ==================================================================
+   People
+   ================================================================== */
+
+.people { padding: var(--band) var(--gut); border-bottom: 1px solid var(--line); }
+.people h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+  margin-bottom: clamp(2.5rem, 6vw, 4rem);
+}
+.people__grid { display: grid; gap: clamp(2rem, 4vw, 3rem); }
+.person { padding-top: 1.2rem; border-top: 1px solid var(--line); }
+.person h3 { font-family: var(--serif); font-size: var(--step-2); }
+.person__role {
+  font-size: var(--step--1); color: var(--sage);
+  letter-spacing: 0.02em; margin: 0.4em 0 0.9em;
+}
+.person p:last-child { color: var(--ink-soft); margin: 0; }
+
+/* ==================================================================
+   Refusals
+   ================================================================== */
+
+.no {
+  background: var(--sage-wash);
+  padding: var(--band) var(--gut);
+}
+.no h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.no__list { display: grid; gap: 1.6rem; max-width: 62rem; }
+.no__list li {
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--sage) 26%, transparent);
+  color: var(--ink-soft);
+}
+.no__list b { display: block; color: var(--ink); font-weight: 500; margin-bottom: 0.3em; }
+
+/* ==================================================================
+   Find us
+   ================================================================== */
+
+.find { display: grid; }
+.find__plate { position: relative; background: var(--paper-sink); overflow: clip; }
+.find__video { width: 100%; height: 100%; object-fit: cover; }
+.find__video--h { display: none; }
+.find__video--v { aspect-ratio: 9 / 16; max-height: 78svh; }
+.find__copy { padding: var(--band) var(--gut); }
+.find__copy h2 {
+  font-family: var(--serif); font-weight: 300;
+  font-size: var(--step-3); letter-spacing: -0.012em;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+.find__list { display: grid; gap: 1.3rem; margin: 0; }
+.find__list > div {
+  display: grid; gap: 0.25rem;
+  padding-top: 0.9rem; border-top: 1px solid var(--line);
+}
+.find__list dt {
+  font-size: var(--step--1); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-soft);
+}
+.find__list dd { margin: 0; }
+/* Phone and email are the primary affordance in this block, not links inside
+   a sentence, so they get a real 44px target rather than the 21px an inline
+   <a> lands at. */
+.find__list a {
+  display: inline-flex; align-items: center; min-height: var(--tap);
+  color: var(--sage); text-decoration-thickness: 1px; text-underline-offset: 3px;
+}
+
+/* ==================================================================
+   Booking
+   ================================================================== */
+
+.book { position: relative; overflow: clip; isolation: isolate; }
+.book__plate { position: absolute; inset: 0; z-index: -2; background: var(--paper-sink); }
+.book__plate video { width: 100%; height: 100%; object-fit: cover; }
+.book__scrim {
+  position: absolute; inset: 0; z-index: 1;   /* above the plate, same reason as the hero */
+  background:
+    linear-gradient(100deg,
+      color-mix(in srgb, var(--paper) 90%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 78%, transparent) 32%,
+      color-mix(in srgb, var(--paper) 24%, transparent) 56%,
+      transparent 72%),
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--paper) 50%, transparent) 0%,
+      transparent 18%);
+}
+.book__inner { padding: var(--band) var(--gut); max-width: 62rem; }
+.book__lede { font-size: var(--step-1); color: var(--ink-soft); max-width: 32ch; margin-bottom: 2.5rem; }
+
+.form { display: grid; gap: 1.3rem; max-width: 44rem; }
+.field { display: grid; gap: 0.4rem; }
+.field label { font-size: var(--step--1); color: var(--ink-soft); letter-spacing: 0.02em; }
+.field__opt { color: var(--ink-faint); }
+.field input, .field textarea {
+  width: 100%; min-height: var(--tap);
+  padding: 0.7rem 0.9rem;
+  font: 400 var(--step-0)/1.5 var(--sans);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--paper-raise) 92%, transparent);
+  border: 1px solid var(--line); border-radius: var(--radius);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.field input::placeholder { color: var(--ink-faint); }
+.field input:hover, .field textarea:hover { border-color: var(--ink-faint); }
+.field input:focus, .field textarea:focus { border-color: var(--sage); background: var(--paper-raise); }
+.field textarea { resize: vertical; }
+.field.is-bad input, .field.is-bad textarea { border-color: #9A3B2E; }
+.field__err { margin: 0; font-size: var(--step--1); color: #8A3327; }
+.form__submit { gap: 1rem; }
+.form__note { margin: 0; font-size: var(--step--1); color: var(--ink-soft); max-width: 40ch; }
+.form__note a { color: var(--sage); }
+.form__ok {
+  margin: 0; padding: 0.9rem 1.1rem;
+  background: var(--sage-wash); border-left: 2px solid var(--sage);
+  font-size: var(--step-0);
+}
+
+/* ==================================================================
+   Footer
+   ================================================================== */
+
+.foot {
+  background: var(--night); color: var(--night-soft);
+  padding: clamp(2.5rem, 6vw, 4rem) var(--gut);
+  font-size: var(--step--1);
+}
+.foot__row { display: grid; gap: 0.4rem; margin-bottom: 1.6rem; }
+.foot__row span:first-child { color: var(--night-ink); font-family: var(--serif); font-size: var(--step-1); }
+.foot__fine { margin: 0; max-width: 62ch; line-height: 1.6; opacity: 0.82; }
+
+/* ==================================================================
+   Breakpoints
+   ================================================================== */
+
+/* Below the desktop breakpoint the hero copy runs the full width, so a
+   left-weighted scrim protects nothing on the right half of the headline. */
+@media (max-width: 899.98px) {
+  .hero__scrim {
+    background: linear-gradient(to top,
+      color-mix(in srgb, var(--paper) 93%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 87%, transparent) 58%,
+      color-mix(in srgb, var(--paper) 28%, transparent) 80%,
+      transparent 93%);
+  }
+  .book__scrim {
+    background: linear-gradient(to top,
+      color-mix(in srgb, var(--paper) 88%, transparent) 0%,
+      color-mix(in srgb, var(--paper) 80%, transparent) 62%,
+      color-mix(in srgb, var(--paper) 30%, transparent) 84%,
+      transparent 96%);
+  }
+}
+
+@media (max-width: 639.98px) {
+  .hero__scrollcue { display: none; }
+}
+
+@media (min-width: 640px) {
+  .craft__grid { grid-template-columns: repeat(2, 1fr); }
+  .people__grid { grid-template-columns: repeat(2, 1fr); }
+  .form { grid-template-columns: 1fr 1fr; }
+  .field--wide { grid-column: 1 / -1; }
+  .form__submit { display: flex; flex-wrap: wrap; align-items: center; }
+  .prices__row {
+    grid-template-columns: minmax(0, 1fr) 9rem 9rem;
+    align-items: baseline;
+  }
+  .prices__row [role="cell"]:nth-child(2) { grid-column: auto; order: 0; }
+  .prices__row .num { text-align: right; }
+  .prices__row--head {
+    display: grid;
+    padding: 0.7rem 0;
+    font-size: var(--step--1); letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--ink-soft);
+    border-bottom: 1px solid var(--line);
+  }
+  .prices__row--head span:last-child { text-align: right; }
+}
+
+@media (min-width: 900px) {
+  .head__nav { display: flex; }
+  .motion { display: inline-flex; }
+  .say { grid-template-columns: 1.1fr 1fr; align-items: start; }
+  .craft__grid { grid-template-columns: repeat(3, 1fr); }
+  .people__grid { grid-template-columns: repeat(3, 1fr); }
+  .find { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .find__video--h { display: block; height: 100%; }
+  .find__video--v { display: none; }
+  .find__copy { padding-block: var(--band); align-self: center; }
+  .book__inner { padding-block: calc(var(--band) * 1.15); }
+
+  /* ---- pinned walk: paper column + a window into the clinic ---- */
+  .walk--pinned .walk__stage {
+    position: relative;
+    height: 100svh;
+    background: var(--paper);           /* pinned sections need an opaque ground */
+    overflow: clip;
+  }
+  .walk--pinned .walk__panels { position: static; }
+  .walk--pinned .walk__panel { margin: 0; }
+
+  /* An absolutely positioned <video> is a replaced element: with top+bottom
+     set but height:auto it falls back to its intrinsic height and leaves a
+     band of bare paper under the frame. Size it explicitly instead. */
+  .walk--pinned .walk__plate {
+    position: absolute;
+    top: 0; left: 42%;
+    width: 58%; height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.7s var(--ease);
+  }
+  .walk--pinned .walk__plate.is-on { opacity: 1; }
+
+  .walk--pinned .walk__title {
+    position: absolute; z-index: 2;
+    top: clamp(5.5rem, 11vh, 8rem); left: var(--gut);
+    width: calc(42% - var(--gut) * 2);
+    margin: 0; padding: 0;
+    font-size: var(--step-1);
+    color: var(--ink-soft);
+    max-width: none;
+  }
+
+  .walk--pinned .walk__text {
+    position: absolute;
+    left: 0; width: 42%;
+    top: 50%; transform: translateY(-50%);
+    padding: 0 clamp(2rem, 3.4vw, 4rem) 0 var(--gut);
+    max-width: none;
+    opacity: 0; visibility: hidden;
+  }
+  .walk--pinned .walk__panel.is-on .walk__text { opacity: 1; visibility: visible; }
+
+  .walk--pinned .walk__rail {
+    display: block;
+    position: absolute; z-index: 2;
+    left: var(--gut); bottom: clamp(2rem, 5vh, 3.5rem);
+    width: calc(42% - var(--gut) * 2);
+  }
+  .walk__clock {
+    display: block;
+    font-family: var(--serif); font-size: var(--step-2);
+    color: var(--ink); font-variant-numeric: tabular-nums;
+    margin-bottom: 0.9rem;
+  }
+  .walk__list { display: grid; gap: 0.15rem; }
+  .walk__list li {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding: 0.28rem 0;
+    font-size: var(--step--1);
+    color: var(--ink-faint);
+    border-top: 1px solid var(--line);
+    transition: color 0.35s var(--ease), border-color 0.35s var(--ease);
+  }
+  .walk__list li i { font-style: normal; font-variant-numeric: tabular-nums; }
+  .walk__list li.is-past { color: var(--ink-soft); }
+  .walk__list li.is-now { color: var(--ink); border-top-color: var(--sage); }
+}
+
+@media (min-width: 1200px) {
+  .hero__copy { max-width: 52rem; }
+  .say { gap: 6rem; }
+}
+
+/* ==================================================================
+   Reduced motion — every resting state is already the finished state,
+   so there is nothing to unfreeze here; just stop things moving.
+   ================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .walk--pinned .walk__plate,
+  .walk--pinned .walk__text { transition: none; }
+}

@@ -1,0 +1,78 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   MONOLITH — design tokens
+   Palette is sampled from the footage itself: one warm light source carving a
+   subject out of near-total darkness. Amber is the only accent in the system.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Ground ─────────────────────────────────────────────────────────────
+     Never pure #000 — it smears on OLED and kills the grade's shadow detail. */
+  --ink:         #08070A;
+  --ink-raised:  #100E14;
+  --ash:         #1A171F;
+
+  /* ── Light — sampled off the ivory silk plate ───────────────────────────── */
+  --bone:        #EDE8E0;   /* 15.9:1 on --ink */
+  --bone-dim:    #A9A39B;   /*  8.1:1 */
+  --smoke:       #8B8591;   /*  5.6:1 — the floor for label text; anything
+                                muddier than this fails AA at label sizes */
+
+  /* ── The one accent — molten gold, from the loader line and the hero drop ── */
+  --molten:      #C98A3C;
+  --molten-hi:   #F2C57C;
+  --molten-lo:   #7A5324;
+
+  /* ── Cold — lives only in shadows and hairlines, never as a UI accent ───── */
+  --slate:       #3A424F;
+
+  --line:        rgba(237, 232, 224, 0.10);
+  --line-soft:   rgba(237, 232, 224, 0.05);
+
+  /* ── Type ───────────────────────────────────────────────────────────────── */
+  --f-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --f-body:    'Instrument Sans', system-ui, sans-serif;
+  --f-mono:    'Martian Mono', ui-monospace, 'SF Mono', monospace;
+
+  /* Sized so the longest display line still clears the gutter without wrapping
+     — a wrapped line breaks the masked reveal, which clips per .line. */
+  --fs-mega: clamp(2.6rem, 9vw, 9.5rem);
+  --fs-xl:   clamp(2.3rem, 6.2vw, 5.6rem);
+  --fs-lg:   clamp(1.7rem, 3.3vw, 3rem);
+  --fs-md:   clamp(1.05rem, 1.6vw, 1.35rem);
+  --fs-body: clamp(0.95rem, 1.05vw, 1.06rem);
+  --fs-sm:   0.82rem;
+  --fs-xs:   0.66rem;
+
+  /* Anamorphic axis. The hero desqueezes from --wdth-squeeze to --wdth-wide. */
+  --wdth-squeeze: 74;
+  --wdth-wide:    116;
+
+  /* ── Space ──────────────────────────────────────────────────────────────── */
+  --sp-1: 0.5rem;
+  --sp-2: 1rem;
+  --sp-3: 1.5rem;
+  --sp-4: 2.5rem;
+  --sp-5: 4rem;
+  --sp-6: 6rem;
+  --sp-7: 9rem;
+
+  --rail-w: 74px;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --measure: 34rem;
+
+  /* ── Motion ─────────────────────────────────────────────────────────────── */
+  --e-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --e-inout: cubic-bezier(0.76, 0, 0.24, 1);
+  --t-fast:  180ms;
+  --t-mid:   360ms;
+
+  --z-grain:  90;
+  --z-rail:   60;
+  --z-head:   70;
+  --z-cursor: 100;
+  --z-load:   120;
+}
+
+@media (max-width: 1023px) {
+  :root { --rail-w: 0px; }
+}

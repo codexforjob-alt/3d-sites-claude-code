@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>КЕДР — дровяная печь и кедровая стойка, Алматы</title>
+    <meta
+      name="description"
+      content="34 места, одна дровяная печь и стойка на девятерых. Кабанбай батыра, 87. Вторник–воскресенье с 17:00."
+    />
+    <meta name="theme-color" content="#120b06" />
+    <meta property="og:title" content="КЕДР — Алматы" />
+    <meta
+      property="og:description"
+      content="Огонь в одном конце зала, лёд в другом. Дровяная печь, кедровая стойка на девять мест."
+    />
+    <meta property="og:type" content="restaurant.restaurant" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23120b06'/%3E%3Ccircle cx='16' cy='17' r='6' fill='%23d89756'/%3E%3C/svg%3E"
+    />
+    <link rel="preload" as="image" href="/video/hero-room.jpg" />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/golos-text-cyrillic-wght-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/cormorant-garamond-cyrillic-600-normal.woff2"
+      crossorigin
+    />
+  </head>
+
+  <body class="is-loading">
+    <div class="preloader" id="preloader">
+      <span class="preloader__word">КЕДР</span>
+      <span class="preloader__bar"><i></i></span>
+    </div>
+
+    <a class="skip-link" href="#porog">Перейти к содержанию</a>
+
+    <header class="masthead" id="masthead">
+      <a class="wordmark" href="#porog">КЕДР</a>
+
+      <nav class="nav" aria-label="Разделы">
+        <a href="#pech">Печь</a>
+        <a href="#stoika">Стойка</a>
+        <a href="#menu">Меню</a>
+        <a href="#stol">Контакты</a>
+      </nav>
+
+      <button
+        class="motion-toggle"
+        id="motion-toggle"
+        type="button"
+        aria-pressed="true"
+        title="Остановить или запустить видео на странице"
+      >
+        <span class="motion-toggle__dot" aria-hidden="true"></span>
+        <span class="motion-toggle__label">Движение</span>
+      </button>
+    </header>
+
+    <!-- The rail. Scroll position is the playhead; every reading is real. -->
+    <aside class="rail" id="rail" aria-hidden="true">
+      <span class="rail__seam"><i class="rail__tick" id="rail-tick"></i></span>
+      <span class="rail__readout">
+        <span class="rail__value" id="rail-value">21°</span>
+        <span class="rail__measures" id="rail-measures">зал</span>
+      </span>
+    </aside>
+
+    <main id="main">
+      <!-- 01 · Порог ---------------------------------------------------- -->
+      <section class="sec sec--hero" id="porog" data-section="porog">
+        <div class="plate-wrap plate-wrap--full">
+          <video
+            class="plate"
+            data-plate="hero-room"
+            data-eager
+            playsinline
+            muted
+            loop
+            preload="auto"
+            poster="/video/hero-room.jpg"
+          >
+            <source data-src="/video/hero-room.webm" type="video/webm" />
+            <source data-src="/video/hero-room.mp4" type="video/mp4" />
+          </video>
+          <span class="scrim scrim--hero" aria-hidden="true"></span>
+        </div>
+
+        <div class="hero__body">
+          <p class="kicker reveal">Алматы · Кабанбай батыра, 87</p>
+          <h1 class="hero__title">
+            <span class="mask"><span class="mask__line">Огонь в одном конце,</span></span>
+            <span class="mask"><span class="mask__line">лёд в другом</span></span>
+          </h1>
+          <p class="hero__standfirst reveal">
+            34 места, дровяная печь и кедровая стойка на девятерых. Открылись в марте 2021 и
+            с тех пор ничего не перестраивали.
+          </p>
+        </div>
+
+        <a class="hero__hint reveal" href="#pech">
+          <span>вниз</span>
+          <span class="hero__hint-line" aria-hidden="true"></span>
+        </a>
+      </section>
+
+      <!-- 02 · Печь ----------------------------------------------------- -->
+      <section class="sec sec--pinned" id="pech" data-section="pech">
+        <div class="pin-stage" id="pin-stage">
+          <div class="plate-wrap plate-wrap--full">
+            <video
+              class="plate"
+              data-plate="pinned-oven"
+              playsinline
+              muted
+              loop
+              preload="none"
+              poster="/video/pinned-oven.jpg"
+            >
+              <source data-src="/video/pinned-oven.webm" type="video/webm" />
+              <source data-src="/video/pinned-oven.mp4" type="video/mp4" />
+            </video>
+            <span class="scrim scrim--pinned" aria-hidden="true"></span>
+          </div>
+
+          <div class="pin-stage__copy">
+            <p class="eyebrow">Печь</p>
+            <h2 class="pin-stage__title">Девяносто секунд</h2>
+            <div class="beats" id="beats">
+              <p class="beat" data-beat="0">
+                Печь сложили из шамота весной 2021-го. Под держит 480 градусов, купол забирает
+                ещё сотню сверху, и пицца сидит там полторы минуты — дальше борт начинает
+                гореть, а не подрумяниваться.
+              </p>
+              <p class="beat" data-beat="1">
+                Топим яблоней и урюком. Урюк даёт ровный жар и почти не дымит, яблоня добавляет
+                запах, который слышно от двери; хвою в печь не кладём никогда, что бы ни
+                говорило название заведения.
+              </p>
+              <p class="beat" data-beat="2">
+                За час печь отдаёт двадцать четыре пиццы, и это потолок: она одна. В пятницу без
+                брони можно простоять у входа полчаса. Мы честно предупреждаем по телефону,
+                когда всё занято.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03 · Тесто ---------------------------------------------------- -->
+      <section class="sec sec--band" id="korka" data-section="korka">
+        <div class="band">
+          <div class="plate-wrap plate-wrap--band">
+            <video
+              class="plate"
+              data-plate="detail-cornicione"
+              playsinline
+              muted
+              loop
+              preload="none"
+              poster="/video/detail-cornicione.jpg"
+            >
+              <source data-src="/video/detail-cornicione.webm" type="video/webm" />
+              <source data-src="/video/detail-cornicione.mp4" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+
+        <div class="wrap band__copy">
+          <div class="band__head">
+            <p class="eyebrow reveal">Тесто</p>
+            <h2 class="h2 reveal">Пятна на борте — это двое суток холода</h2>
+            <p class="figure reveal">
+              <span class="figure__value">48 часов</span>
+              <span class="figure__label">при 4 °C, каждая партия</span>
+            </p>
+          </div>
+          <div class="band__text">
+            <p class="reveal">
+              Тесто ставим в четверг на воскресенье: сорок восемь часов при четырёх градусах,
+              где оно почти ничего не делает. В этом и смысл. Клейковина расслабляется, сахара
+              расходуются медленно, и в печи борт успевает подняться и обуглиться пятнами
+              раньше, чем середина пересохнет.
+            </p>
+            <p class="reveal">
+              Мука типа 00, вода, соль, немного закваски. Сахар, масло и молоко в тесто не идут;
+              пиццу мы не режем, потому что неаполитанцы едят её сложив вчетверо, и нож на стол
+              мы не кладём.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 · Стойка --------------------------------------------------- -->
+      <section class="sec sec--split" id="stoika" data-section="stoika">
+        <div class="wrap split">
+          <div class="split__media">
+            <div class="plate-wrap plate-wrap--16x9">
+              <video
+                class="plate"
+                data-plate="place-counter"
+                playsinline
+                muted
+                loop
+                preload="none"
+                poster="/video/place-counter.jpg"
+              >
+                <source data-src="/video/place-counter.webm" type="video/webm" />
+                <source data-src="/video/place-counter.mp4" type="video/mp4" />
+              </video>
+            </div>
+          </div>
+
+          <div class="split__copy">
+            <p class="eyebrow reveal">Стойка</p>
+            <h2 class="h2 reveal">За стойкой девять мест</h2>
+            <p class="reveal">
+              Стойка кедровая, отсюда и название — не от дров. Ержан стоит за ней один, поэтому
+              десятого мы не сажаем: иначе последний в очереди получит нигири, которое четверть
+              часа ждало своей подачи под лампой.
+            </p>
+            <p class="reveal">
+              Витрина держит два градуса, рис — тридцать шесть, температуру ладони. Холодный рис
+              под тёплой рыбой это не суши, а недоразумение, и переспорить нас на этот счёт ещё
+              никому не удавалось.
+            </p>
+            <dl class="stats reveal">
+              <div><dt>9</dt><dd>мест за стойкой</dd></div>
+              <div><dt>2 °C</dt><dd>витрина</dd></div>
+              <div><dt>36 °C</dt><dd>шари</dd></div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 · Нож ------------------------------------------------------ -->
+      <section class="sec sec--cold is-cold" id="nozh" data-section="nozh">
+        <div class="wrap cold">
+          <div class="cold__copy">
+            <p class="eyebrow reveal">Доставка</p>
+            <h2 class="h2 reveal">Нигири мы не возим</h2>
+            <p class="reveal">
+              Тунца берём замороженным до минус шестидесяти. При такой заморозке лёд не рвёт
+              волокно, и рыба оттаивает ровно такой, какой была; сутки в холодильнике, дальше на
+              доску.
+            </p>
+            <p class="reveal">
+              А теперь то, что стоит нам денег каждый вечер. Нигири на доставку мы не отдаём. За
+              сорок минут в коробке рис становится плотным и холодным, рыба потеет, и вы платите
+              четыре тысячи за что-то другое. Возим пиццу и четыре ролла, ровно те, что дорогу
+              переживают.
+            </p>
+          </div>
+
+          <div class="cold__media">
+            <div class="plate-wrap plate-wrap--9x16">
+              <video
+                class="plate"
+                data-plate="detail-blade"
+                playsinline
+                muted
+                loop
+                preload="none"
+                poster="/video/detail-blade.jpg"
+              >
+                <source data-src="/video/detail-blade.webm" type="video/webm" />
+                <source data-src="/video/detail-blade.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <p class="cold__caption">−60 °C · тунец приезжает таким</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 · Меню ----------------------------------------------------- -->
+      <section class="sec sec--menu" id="menu" data-section="menu">
+        <div class="wrap">
+          <div class="menu__head">
+            <p class="eyebrow reveal">Меню</p>
+            <h2 class="h2 reveal">Помещается на одну страницу</h2>
+            <p class="menu__note reveal">
+              Полное меню меняется, когда меняется рыба. Ниже — четыре позиции, которые стоят в
+              нём с открытия и никуда не денутся.
+            </p>
+          </div>
+
+          <ul class="cards">
+            <li class="card reveal">
+              <div class="plate-wrap plate-wrap--9x16">
+                <video
+                  class="plate"
+                  data-plate="menu-01-margherita"
+                  playsinline
+                  muted
+                  loop
+                  preload="none"
+                  poster="/video/menu-01-margherita.jpg"
+                >
+                  <!-- no webm: VP9 came out larger than x264 on this plate and
+                       was dropped, so listing it would only cost a 404 -->
+                  <source data-src="/video/menu-01-margherita.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="card__body">
+                <h3 class="card__name">Маргарита</h3>
+                <p class="card__meta">30 см · 90 секунд</p>
+                <p class="card__note">
+                  Сан-Марцано, фиор ди латте, базилик, оливковое масло. Больше в ней ничего нет и
+                  не будет.
+                </p>
+                <p class="card__price">4 600 ₸</p>
+              </div>
+            </li>
+
+            <li class="card reveal">
+              <div class="plate-wrap plate-wrap--9x16">
+                <video
+                  class="plate"
+                  data-plate="menu-02-nigiri"
+                  playsinline
+                  muted
+                  loop
+                  preload="none"
+                  poster="/video/menu-02-nigiri.jpg"
+                >
+                  <!-- no webm, same reason as the margherita card -->
+                  <source data-src="/video/menu-02-nigiri.mp4" type="video/mp4" />
+                </video>
+                <span class="card__badge">только в зале</span>
+              </div>
+              <div class="card__body">
+                <h3 class="card__name">Нигири, пара</h3>
+                <p class="card__meta">лосось и тунец</p>
+                <p class="card__note">
+                  Шари на красном уксусе, кисть никири поверх. На вынос не собираем.
+                </p>
+                <p class="card__price">2 200 ₸</p>
+              </div>
+            </li>
+
+            <li class="card reveal">
+              <div class="plate-wrap plate-wrap--9x16">
+                <video
+                  class="plate"
+                  data-plate="menu-03-diavola"
+                  playsinline
+                  muted
+                  loop
+                  preload="none"
+                  poster="/video/menu-03-diavola.jpg"
+                >
+                  <source data-src="/video/menu-03-diavola.webm" type="video/webm" />
+                  <source data-src="/video/menu-03-diavola.mp4" type="video/mp4" />
+                </video>
+              </div>
+              <div class="card__body">
+                <h3 class="card__name">Дьявола</h3>
+                <p class="card__meta">30 см · 90 секунд</p>
+                <p class="card__note">
+                  Салями пикканте, ндуйя, орегано. Масло на борте вытопилось из ндуйи, мы его
+                  туда не доливали.
+                </p>
+                <p class="card__price">5 400 ₸</p>
+              </div>
+            </li>
+
+            <li class="card reveal">
+              <div class="plate-wrap plate-wrap--9x16">
+                <video
+                  class="plate"
+                  data-plate="menu-04-uramaki"
+                  playsinline
+                  muted
+                  loop
+                  preload="none"
+                  poster="/video/menu-04-uramaki.jpg"
+                >
+                  <source data-src="/video/menu-04-uramaki.webm" type="video/webm" />
+                  <source data-src="/video/menu-04-uramaki.mp4" type="video/mp4" />
+                </video>
+                <span class="card__badge">едет на доставку</span>
+              </div>
+              <div class="card__body">
+                <h3 class="card__name">Урамаки с лососем</h3>
+                <p class="card__meta">8 кусков</p>
+                <p class="card__note">
+                  Лосось, авокадо, кунжут снаружи. Один из четырёх роллов, которые уезжают на
+                  доставку.
+                </p>
+                <p class="card__price">4 800 ₸</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 07 · Стол ----------------------------------------------------- -->
+      <section class="sec sec--cta" id="stol" data-section="stol">
+        <div class="plate-wrap plate-wrap--full">
+          <video
+            class="plate"
+            data-plate="cta-table"
+            playsinline
+            muted
+            loop
+            preload="none"
+            poster="/video/cta-table.jpg"
+          >
+            <source data-src="/video/cta-table.webm" type="video/webm" />
+            <source data-src="/video/cta-table.mp4" type="video/mp4" />
+          </video>
+          <span class="scrim scrim--cta" aria-hidden="true"></span>
+        </div>
+
+        <div class="wrap cta">
+          <p class="eyebrow reveal">Бронь</p>
+          <h2 class="cta__title reveal">Стол или стойка?</h2>
+          <p class="cta__body reveal">
+            Формы бронирования на сайте нет, мы её так и не сделали. Звоните: отвечает тот, кто
+            сейчас в зале, и он же скажет, есть ли места за стойкой на сегодня.
+          </p>
+          <a class="cta__phone reveal" href="tel:+77273501409">+7 727 350 14 09</a>
+          <p class="cta__fine reveal">
+            Понедельник — выходной, печь остывает. Кухня закрывается в 22:30.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer__grid">
+        <div class="footer__col">
+          <h2 class="footer__title">Адрес</h2>
+          <p>Алматы, Кабанбай батыра, 87</p>
+          <p>вход со двора, вывески нет</p>
+        </div>
+        <div class="footer__col">
+          <h2 class="footer__title">Часы</h2>
+          <p>вт–вс · 17:00–23:00</p>
+          <p>понедельник — выходной</p>
+        </div>
+        <div class="footer__col">
+          <h2 class="footer__title">Доставка</h2>
+          <p>пицца и четыре ролла</p>
+          <p>по телефону, без агрегаторов</p>
+        </div>
+        <div class="footer__col footer__col--tel">
+          <h2 class="footer__title">Бронь</h2>
+          <a href="tel:+77273501409">+7 727 350 14 09</a>
+        </div>
+      </div>
+      <p class="footer__colophon">КЕДР · Алматы · с 2021</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
