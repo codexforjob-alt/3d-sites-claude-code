@@ -1,0 +1,61 @@
+/* ---------------------------------------------------------------------------
+   Tokens.
+
+   Every colour here was sampled out of the five poster frames in /public/video,
+   not chosen from a palette. What the footage has in common: hazy daylight on
+   matte pale surfaces, no black anywhere (5th-percentile luminance sits at
+   45-56 in all five plates, never near 0), and exactly one saturated note —
+   hue 30-40, which is copper, brass, pump oil and Almaty sunlight all at once.
+
+   So the page is bone, not black, and there is one accent. On a dark ground
+   these plates go grey and flat; that is why this site is light.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* ground — plaster wall in cta-room, bleached render in plate-outdoor */
+  --paper:      #EFECE5;
+  --paper-2:    #F7F5F0;   /* raised blocks, table zebra */
+  --paper-3:    #E3DFD6;   /* wells, hairline fills */
+
+  /* ink — the window frame in hero-curtain. Warm graphite, never #000 */
+  --ink:        #191A1B;
+  --ink-2:      #4C4B48;
+  --ink-3:      #6B6862;   /* third tier: 4.7:1 on --paper. #7A7770 read as
+                              tasteful and landed at 3.79:1 — the classic failure */
+
+  /* the one accent: hue 34, straight off the copper pipe and the pump oil */
+  --copper:     #A0561A;   /* links, labels, small type — 4.6:1 on --paper */
+  --copper-hi:  #C0762A;   /* fills and large numerals only */
+  --copper-ink: #6E3A0F;   /* copper on a copper-tinted well */
+
+  /* the cold note lives in hairlines and captions, never in UI fills.
+     Sampled from the curtain's shadow side (#546C6C, hue 180, sat 22%) */
+  --cold:       #566A6E;
+
+  --rule:       rgba(25, 26, 27, .16);
+  --rule-soft:  rgba(25, 26, 27, .08);
+
+  /* type */
+  --sans: "Golos Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* measure and rhythm */
+  --page:     1220px;
+  --gutter:   clamp(20px, 5vw, 64px);
+  --bar-h:    58px;
+  --sheet-y:  clamp(72px, 11vh, 148px);
+
+  --r:        3px;   /* the only radius on the page */
+  --ease:     cubic-bezier(.22, .61, .36, 1);
+}
+
+/* The footage is daylight and the design is committed to it. A dark scheme
+   would need a different set of plates, so there is deliberately no dark
+   variant — only a small nudge for people who force one, keeping contrast. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:   #E9E5DD;
+    --paper-2: #F3F0EA;
+    --rule:    rgba(25, 26, 27, .2);
+  }
+}
