@@ -68,10 +68,20 @@ const probe = `(() => {
   }
 
   // headline fit
-  const heads = [...document.querySelectorAll('h1, h2')].map(h => ({
-    txt: h.textContent.trim().slice(0, 30),
+  // Wrapping does not grow scrollWidth, so measure line boxes: a headline with
+  // explicit <br>s must render exactly that many lines and no more.
+  const lineCount = (el) => {
+    const r = document.createRange();
+    r.selectNodeContents(el);
+    const tops = new Set([...r.getClientRects()].filter(x => x.height > 4).map(x => Math.round(x.top)));
+    return tops.size;
+  };
+  const heads = [...document.querySelectorAll('h1, h2, h3')].map(h => ({
+    txt: h.textContent.trim().replace(/\s+/g, ' ').slice(0, 34),
+    want: h.querySelectorAll('br').length + 1,
+    got: lineCount(h),
     over: h.scrollWidth > h.clientWidth + 1,
-  })).filter(h => h.over);
+  })).filter(h => h.over || (h.querySelectorAll ? false : false) || h.got > h.want && h.want > 1);
 
   return {
     scrollW: document.documentElement.scrollWidth, vw,

@@ -8,7 +8,7 @@ for (const [label, w, h] of [['d', 1440, 900], ['m', 390, 844]]) {
   const p = await ctx.newPage();
   await p.goto('http://localhost:4177/', { waitUntil: 'networkidle' });
   await p.waitForTimeout(800);
-  const secs = ['.hero', '#equipment', '.band', '#install', '#service', '#rules', '#facts', '#estimate', '#contact'];
+  const secs = ['.hero', '#vrf', '#vent', '#estimate', '#project', '.band', '#service', '#rules', '#facts', '#contact'];
   for (const [i, sel] of secs.entries()) {
     await p.evaluate((s) => { const el = document.querySelector(s); window.scrollTo(0, el.getBoundingClientRect().top + scrollY - 58); }, sel);
     await p.waitForTimeout(700);

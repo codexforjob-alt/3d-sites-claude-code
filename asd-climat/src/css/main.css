@@ -41,8 +41,47 @@ a { color: inherit; }
 .skip:focus { top: 12px; }
 
 /* ── top bar ───────────────────────────────────────────────────────────── */
+/* ── demo banner ───────────────────────────────────────────────────────────
+   Deleting the .demo element in index.html turns the site live; src/js/demo.js
+   keys off nothing else. --demo-h must match its rendered height, since the
+   fixed header and the hero both sit below it. */
+:root { --demo-h: 34px; }
+
+.demo {
+  position: fixed; inset: 0 0 auto 0; z-index: 70;
+  height: var(--demo-h);
+  display: flex; align-items: center; justify-content: center; gap: .4em;
+  padding: 0 var(--gutter);
+  background: var(--copper-hi); color: #1B1206;
+  font-size: 12.5px; line-height: 1.2; text-align: center;
+}
+.demo b { font-weight: 600; }
+@media (max-width: 720px) {
+  :root { --demo-h: 46px; }
+  .demo { font-size: 11.5px; line-height: 1.3; }
+}
+@media (max-width: 420px) {
+  :root { --demo-h: 54px; }
+}
+
+/* the reason a disabled contact button did nothing */
+.demo-note {
+  display: inline-flex; align-items: center;
+  margin-left: 10px; padding: 0 12px; min-height: 34px;
+  border-radius: var(--r); background: var(--paper-3); color: var(--ink-2);
+  font-size: 12.5px; opacity: 0;
+  transition: opacity .2s var(--ease);
+  pointer-events: none;
+}
+.demo-note.is-on { opacity: 1; }
+
+:root[data-demo] [data-contact] { cursor: default; }
+:root[data-demo] .btn--go[data-contact]:hover { background: var(--ink); }
+:root[data-demo] .btn--quiet[data-contact]:hover { border-color: var(--rule); background: none; }
+:root[data-demo] .foot a[data-contact]:hover { color: inherit; border-bottom-color: var(--rule); }
+
 .bar {
-  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  position: fixed; inset: var(--demo-h) 0 auto 0; z-index: 60;
   height: var(--bar-h);
   display: flex; align-items: center; gap: clamp(16px, 4vw, 48px);
   padding: 0 var(--gutter);
@@ -123,7 +162,7 @@ a { color: inherit; }
 .btn--quiet:hover { border-color: var(--ink); background: var(--paper-2); }
 
 h1, h2, h3 { font-weight: 600; letter-spacing: -.025em; text-wrap: balance; }
-h1 { font-size: clamp(34px, 5.2vw, 68px); line-height: 1.02; }
+h1 { font-size: clamp(32px, 4.4vw, 60px); line-height: 1.04; }
 h2 { font-size: clamp(26px, 3.1vw, 41px); line-height: 1.08; }
 h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.015em; }
 
@@ -145,7 +184,7 @@ h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.0
   gap: clamp(28px, 5vw, 76px);
   align-items: center;
   max-width: var(--page); margin: 0 auto;
-  padding: calc(var(--bar-h) + clamp(48px, 9vh, 104px)) var(--gutter) clamp(56px, 9vh, 104px);
+  padding: calc(var(--bar-h) + var(--demo-h) + clamp(40px, 7vh, 92px)) var(--gutter) clamp(56px, 9vh, 104px);
   min-height: 100svh;
 }
 .hero__text > * + * { margin-top: 26px; }
@@ -181,7 +220,7 @@ h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.0
   .hero {
     grid-template-columns: 1fr;
     min-height: 0;
-    padding-top: calc(var(--bar-h) + 40px);
+    padding-top: calc(var(--bar-h) + var(--demo-h) + 34px);
     align-items: start;
   }
   .hero__plate .plate { aspect-ratio: 4 / 5; max-height: 62vh; }
@@ -206,10 +245,31 @@ h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.0
   .sheet__head { grid-template-columns: 1fr; align-items: start; gap: 18px; }
 }
 
+/* ── comparison ────────────────────────────────────────────────────────────
+   Two columns of an argument, not a feature grid: the left one is the honest
+   case against us, so it gets the same weight and the same hairlines. */
+.versus {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(24px, 4vw, 56px);
+  margin-bottom: clamp(40px, 6vh, 72px);
+}
+.versus__col { border-top: 1px solid var(--rule); padding-top: 18px; }
+.versus__col--pro { border-top-color: var(--copper); }
+.versus__col h3 { margin-bottom: 14px; }
+.versus__col--pro h3 { color: var(--copper-ink); }
+@media (max-width: 760px) { .versus { grid-template-columns: 1fr; } }
+
+.mt { margin-top: 26px; }
+.note--tight { margin-top: 16px; font-size: 14.5px; }
+
 /* ── ledger tables ─────────────────────────────────────────────────────── */
 .tablewrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .ledger { width: 100%; min-width: 560px; text-align: left; }
-.ledger caption { text-align: left; }
+.ledger caption {
+  text-align: left; caption-side: top;
+  padding-bottom: 16px; max-width: 62em;
+  font-size: 13px; line-height: 1.5; color: var(--ink-3);
+}
 .ledger thead th {
   font-weight: 500; font-size: 12px; color: var(--ink-3);
   padding: 0 16px 12px 0; vertical-align: bottom;
@@ -252,6 +312,13 @@ h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.0
   content: ""; position: absolute; left: 2px; top: 19px;
   width: 9px; height: 9px; border: 1px solid var(--copper);
   border-radius: 50%;
+}
+
+/* The case against us gets a neutral dash, not the accent ring — the accent
+   marks what we are arguing for. Declared after .ticks so it actually wins. */
+.ticks--minus li::before {
+  width: 11px; height: 0; top: 23px; left: 1px;
+  border: 0; border-top: 1px solid var(--ink-3); border-radius: 0;
 }
 
 .rates > div {
@@ -441,7 +508,7 @@ h3 { font-size: clamp(17px, 1.1vw, 19px); line-height: 1.25; letter-spacing: -.0
 }
 .close__inner { max-width: var(--page); margin: 0 auto; width: 100%; }
 .close__inner > * + * { margin-top: 22px; }
-.close h2 { font-size: clamp(32px, 5vw, 62px); line-height: 1.04; }
+.close h2 { font-size: clamp(27px, 4.4vw, 56px); line-height: 1.06; }
 .close p { max-width: 30em; color: var(--ink-2); }
 .close__cta { display: flex; flex-wrap: wrap; gap: 12px; }
 .close__hours { font-size: 13px; color: var(--cold); }

@@ -171,3 +171,69 @@ cta-room.mp4
 всей страницы: хорошо поставленный сплит не слышно, не видно и он не течёт на подоконник.
 Финальный экран показывает результат, а не коробку на стене. Если этот тезис не нравится —
 скажите до генерации, промпт переписывается за одно сообщение, а клип уже нет.
+
+---
+
+# Дополнение: смена акцента на VRF и вентиляцию
+
+Страница переехала с бытовых сплитов на коммерческие объекты. Три плашки
+из пяти работают на новом материале даже лучше:
+
+- `hero-curtain` — тюль теперь читается не как «спальня», а как приток
+  в переговорной; каптион переписан под скорость на решётке
+- `plate-copper` — медные магистрали VRF, где стыков десятки, а не один
+- `plate-vacuum` — вакуумирование контура на 200+ метров, 6–12 часов
+
+Две выбиваются, и это надо чинить генерацией, а не текстом.
+
+## Урок по `plate-copper`
+
+Veo напечатал `ARRI` на перчатке монтажника, взяв бренд из моей же фразы
+«Shot on ARRI Alexa 35». **Не называйте марку камеры в промпте**, если в кадре
+есть ткань, спецодежда или инструмент — модель охотно ставит на них логотип.
+Пишите «large-format cinema camera with a 100 mm macro probe lens».
+
+## Замена 1 · `band-plant` — наружные блоки VRF, 16:9
+
+Сейчас в полосе стоит бытовой наружный блок на фасаде жилого дома. Для VRF
+нужна модульная связка на кровле или технической площадке.
+
+> Slow-motion shot of a row of four large unbranded pale grey modular condensing
+> units standing on steel frames on a flat commercial rooftop, their wide fan
+> grilles turning steadily, air shimmering with heat above the housings. Gravel
+> ballast underfoot, a parapet, and beyond it a hazy summer ridge of mountains
+> under a bleached sky. Shot on Sony Venice 2 with a 35mm prime, f/5.6, level
+> horizon, deep focus, 60fps. Lighting: hard high afternoon sun from camera
+> right, long sharp frame shadows across the gravel, strong bounce off the pale
+> roof, blown highlights along the sunlit edges. Camera movement: slow
+> gimbal-stabilised lateral track from left to right, constant speed, no
+> handheld shake. Colour grade: warm bleached whites, sand and dust tones,
+> washed pale blue sky, low saturation, gentle halation on the sunlit edges,
+> fine grain. Mood: hot, industrial, still, midday. Wide 16:9 with the units
+> along the lower half and empty bright sky filling the upper right. No text, no
+> letters, no logos, no brand names, no model badges, no watermarks, no people.
+
+## Замена 2 · `cta-floor` — финальный экран, 16:9
+
+Сейчас в финале жилая комната с льняным диваном — на странице про офисы
+и рестораны это самое слабое место.
+
+> Slow, smooth tracking shot moving right to left through a quiet, empty
+> open-plan office in late afternoon. Pale plaster walls, light oak floor, low
+> desks with empty chairs pushed in, a glass meeting room at the far end, a
+> single potted tree, sheer blinds breathing very slightly at a wall of windows.
+> Nothing moves except the camera. Shot on RED Komodo with a 35mm prime, f/4,
+> deep focus, everything sharp, perfectly level horizon. Lighting: broad soft
+> daylight through the window wall at camera right, long gentle shadows
+> stretching across the floor, generous bounce fill, cool-neutral balance
+> drifting slightly warm near the glass. Camera movement: motorised slider,
+> perfectly linear, constant slow speed, no drift, no shake. Colour grade: pale
+> neutral whites, oat and warm grey, cool grey-blue in the shadows, very low
+> contrast, lifted blacks, no grain, no flare. Mood: settled, cool, ordered,
+> unhurried. Wide 16:9 with the left third of frame clean empty wall for a large
+> headline. No text, no letters, no logos, no watermarks, no people, no screens,
+> no monitors showing anything, no ceiling cassettes visible.
+
+Обе — Text to Video, Veo 3.1 Quality, 8 секунд, 16:9. Скачать как
+`band-plant.mp4` и `cta-floor.mp4`; петли, кодирование и подстановку в вёрстку
+сделаю я.

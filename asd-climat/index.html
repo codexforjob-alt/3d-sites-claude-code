@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ASD Climat — кондиционеры в Алматы: продажа, монтаж, обслуживание</title>
-<meta name="description" content="Ставим кондиционеры в Алматы с 2010 года. ALMACOM, LG, GREE, OTEX. Монтаж под ключ от 163 000 ₸, замер по городу бесплатный, гарантия на монтаж 3 года.">
+<title>ASD Climat — VRF и вентиляция для коммерческих объектов в Алматы</title>
+<meta name="description" content="Демо-макет. Мультизональные VRF-системы и приточно-вытяжная вентиляция с рекуперацией для офисов, ресторанов и магазинов в Алматы. Проект, монтаж, пусконаладка, сервис.">
+<meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preload" href="/fonts/golos-text-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/jetbrains-mono-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
@@ -13,16 +14,26 @@
 
 <a class="skip" href="#main">К содержанию</a>
 
+<!-- ─────────────────────────────────────────────────────────────────────────
+     DEMO BANNER — delete this whole element to turn the site live.
+     src/js/demo.js keys off its presence and nothing else: remove it and the
+     contact buttons start working again. See README.
+     ───────────────────────────────────────────────────────────────────────── -->
+<p class="demo">
+  <b>Демо-макет.</b> Все цены, сроки и цифры условные — показывают устройство
+  страницы, а не предложение компании.
+</p>
+
 <header class="bar">
   <a class="bar__mark" href="#top">
     <span class="bar__name">ASD Climat</span>
     <span class="bar__since">Алматы, с 2010</span>
   </a>
   <nav class="bar__nav" aria-label="Разделы">
-    <a href="#equipment">Оборудование</a>
+    <a href="#vrf">VRF</a>
+    <a href="#vent">Вентиляция</a>
     <a href="#estimate">Расчёт</a>
-    <a href="#install">Монтаж</a>
-    <a href="#service">Обслуживание</a>
+    <a href="#project">Проект</a>
   </nav>
   <a class="bar__tel" href="tel:+77788242222">8 778 824 22 22</a>
 </header>
@@ -32,88 +43,169 @@
 <!-- ─────────────────────────────  hero  ───────────────────────────── -->
 <section class="hero" id="top">
   <div class="hero__text">
-    <p class="eyebrow">Продажа · монтаж · обслуживание</p>
-    <h1>Летом в Алматы&nbsp;+36.<br>Дома должно быть&nbsp;+24.</h1>
+    <p class="eyebrow">VRF · вентиляция · автоматика</p>
+    <h1>Сорок кабинетов.<br>Один наружный блок.<br>Сорок температур.</h1>
     <p class="lede">
-      Ставим кондиционеры шестнадцатый год. Четыре бригады, девять монтажников,
-      свой склад. Замер по городу бесплатный, цена называется до начала работ
-      и после них не меняется.
+      Проектируем и ставим мультизональные VRF-системы и приточно-вытяжную
+      вентиляцию с рекуперацией. Офисы, рестораны, магазины, медцентры
+      в Алматы. Шестнадцатый год, свой проектный отдел, четыре монтажные
+      бригады.
     </p>
     <div class="hero__cta">
-      <a class="btn btn--go" href="https://wa.me/77788242222?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D0%BA%D0%BE%D0%BD%D0%B4%D0%B8%D1%86%D0%B8%D0%BE%D0%BD%D0%B5%D1%80" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <a class="btn btn--quiet" href="tel:+77788242222">Позвонить</a>
+      <a class="btn btn--go" data-contact href="https://wa.me/77788242222?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D1%80%D0%B0%D1%81%D1%87%D1%91%D1%82%20%D0%BF%D0%BE%20%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%83" target="_blank" rel="noopener">Запросить расчёт объекта</a>
+      <a class="btn btn--quiet" data-contact href="tel:+77788242222">Позвонить</a>
     </div>
     <dl class="hero__facts">
-      <div><dt>Монтаж под ключ</dt><dd>от 163 000 ₸</dd></div>
-      <div><dt>Замер по Алматы</dt><dd>бесплатно</dd></div>
-      <div><dt>Гарантия на монтаж</dt><dd>3 года</dd></div>
+      <div><dt>VRF под ключ</dt><dd>от 4,9 млн ₸</dd></div>
+      <div><dt>Обследование объекта</dt><dd>бесплатно</dd></div>
+      <div><dt>Объектов на VRF</dt><dd>47</dd></div>
     </dl>
   </div>
 
   <figure class="hero__plate">
     <video class="plate" playsinline muted loop autoplay preload="metadata"
-           poster="/video/hero-curtain.jpg" aria-label="Тюль у окна поднимается потоком холодного воздуха">
+           poster="/video/hero-curtain.jpg" aria-label="Тюль у окна колышется потоком приточного воздуха">
       <source src="/video/hero-curtain.webm" type="video/webm">
       <source src="/video/hero-curtain.mp4" type="video/mp4">
     </video>
-    <figcaption>Квартира на Абая, 14&nbsp;этаж. Сплит на&nbsp;24&nbsp;°C, окно открыто на&nbsp;проветривание.</figcaption>
+    <figcaption>Приток в переговорной. Скорость на решётке 0,2&nbsp;м/с — бумаги на&nbsp;столе не&nbsp;шевелятся, и никто не&nbsp;сидит под&nbsp;струёй.</figcaption>
   </figure>
 </section>
 
-<!-- ─────────────────────────  equipment ledger  ───────────────────── -->
-<section class="sheet" id="equipment">
+<!-- ─────────────────────────────  VRF  ───────────────────────────── -->
+<section class="sheet" id="vrf">
   <div class="sheet__head">
-    <h2>Что ставим и сколько это стоит</h2>
+    <h2>VRF: когда он дешевле, чем кажется</h2>
     <p>
-      Мы дилеры ALMACOM, плюс возим LG, GREE и OTEX. Ниже цена комплектом:
-      блок, монтаж, кронштейн, крепёж и три метра трассы. Не «от», не
-      «уточняйте» — столько вы заплатите, если у вас обычная комната
-      и обычная стена.
+      На объекте до 150 м² мультизональная система редко окупается — там честнее
+      поставить четыре сплита и не морочить голову. Дальше цифры разворачиваются,
+      и мы объясняем почему, а не просто продаём то, что дороже.
     </p>
+  </div>
+
+  <div class="versus">
+    <div class="versus__col">
+      <h3>Восемь отдельных сплитов</h3>
+      <ul class="ticks ticks--minus">
+        <li>Восемь наружных блоков на фасаде и восемь трасс</li>
+        <li>Каждый работает «в пол или полностью» — компрессор тактует</li>
+        <li>Пиковая нагрузка на электрику считается по сумме всех восьми</li>
+        <li>Обслуживать нужно восемь контуров, каждый со своим фреоном</li>
+        <li>Дешевле на входе примерно на треть</li>
+      </ul>
+    </div>
+    <div class="versus__col versus__col--pro">
+      <h3>Один VRF-контур</h3>
+      <ul class="ticks">
+        <li>Один наружный блок, одна магистраль, разводка рефнетами</li>
+        <li>Инвертор держит ровную температуру в каждой зоне отдельно</li>
+        <li>Электрика считается по одновременности — обычно 60–70 % суммы</li>
+        <li>Один контур на обслуживании, одна точка диагностики</li>
+        <li>Отбивает разницу за 4–6 лет на счетах за электричество</li>
+      </ul>
+    </div>
   </div>
 
   <div class="tablewrap">
     <table class="ledger">
-      <caption class="vh">Цены под ключ по мощности блока</caption>
+      <caption>Комплект под ключ: наружный блок, внутренние блоки, магистрали, монтаж, пусконаладка. Цены демонстрационные.</caption>
       <thead>
         <tr>
-          <th scope="col">Блок</th>
-          <th scope="col">Комната</th>
-          <th scope="col">Бюджет<span>ALMACOM, OTEX</span></th>
-          <th scope="col">Инвертор<span>GREE, LG</span></th>
+          <th scope="col">Объект</th>
+          <th scope="col">Наружный блок</th>
+          <th scope="col">Внутренних блоков</th>
+          <th scope="col">Под ключ<span>с настенными</span></th>
         </tr>
       </thead>
       <tbody>
-        <tr><th scope="row">07 <span>7 000 BTU</span></th><td>до 20 м²</td><td class="num">163 000 ₸</td><td class="num">243 000 ₸</td></tr>
-        <tr><th scope="row">09 <span>9 000 BTU</span></th><td>до 25 м²</td><td class="num">174 000 ₸</td><td class="num">260 000 ₸</td></tr>
-        <tr><th scope="row">12 <span>12 000 BTU</span></th><td>до 35 м²</td><td class="num">220 000 ₸</td><td class="num">341 000 ₸</td></tr>
-        <tr><th scope="row">18 <span>18 000 BTU</span></th><td>до 50 м²</td><td class="num">313 000 ₸</td><td class="num">434 000 ₸</td></tr>
-        <tr><th scope="row">24 <span>24 000 BTU</span></th><td>до 70 м²</td><td class="num">407 000 ₸</td><td class="num">559 000 ₸</td></tr>
+        <tr><th scope="row">до 150 м²</th><td>12 кВт</td><td>6</td><td class="num">4 900 000 ₸</td></tr>
+        <tr><th scope="row">до 300 м²</th><td>22 кВт</td><td>10</td><td class="num">8 600 000 ₸</td></tr>
+        <tr><th scope="row">до 600 м²</th><td>45 кВт<span>два модуля</span></td><td>20</td><td class="num">16 400 000 ₸</td></tr>
+        <tr><th scope="row">до 1000 м²</th><td>73 кВт</td><td>32</td><td class="num">26 800 000 ₸</td></tr>
+        <tr><th scope="row">до 1800 м²</th><td>130 кВт</td><td>56</td><td class="num">46 500 000 ₸</td></tr>
       </tbody>
     </table>
   </div>
 
   <div class="cols">
     <div>
-      <h3>Входит в цену</h3>
-      <ul class="ticks">
-        <li>Внутренний и наружный блок, кронштейн, анкеры</li>
-        <li>До трёх метров медной трассы, дренаж, изоляция</li>
-        <li>Опрессовка азотом и вакуумирование</li>
-        <li>Пуск, замер температуры на выходе, настройка пульта</li>
-        <li>Уборка за собой и вынос мусора</li>
-      </ul>
+      <h3>Внутренние блоки, доплата за штуку</h3>
+      <dl class="rates">
+        <div><dt>Настенный</dt><dd>входит в цену</dd></div>
+        <div><dt>Кассетный, четыре потока</dt><dd>85 000 ₸</dd></div>
+        <div><dt>Канальный, средний напор</dt><dd>110 000 ₸</dd></div>
+        <div><dt>Напольно-потолочный</dt><dd>95 000 ₸</dd></div>
+      </dl>
+      <p class="note note--tight">
+        В офисах open space почти всегда кассетные: их видно меньше всего и они
+        раздают на четыре стороны. В кабинетах с подшивным потолком дешевле
+        выходит канальный на два-три помещения сразу.
+      </p>
     </div>
     <div>
       <h3>Считается отдельно</h3>
       <dl class="rates">
-        <div><dt>Трасса свыше 3 м</dt><dd>7 000 ₸/м</dd></div>
-        <div><dt>Штробление, кирпич и газоблок</dt><dd>4 500 ₸/м</dd></div>
-        <div><dt>Штробление, монолит</dt><dd>7 000 ₸/м</dd></div>
-        <div><dt>Промальп выше 3 этажа</dt><dd>25 000 ₸</dd></div>
-        <div><dt>Демонтаж старого блока</dt><dd>20 000 ₸</dd></div>
-        <div><dt>Выезд за город</dt><dd>6 000 ₸</dd></div>
+        <div><dt>Проект и расчёт теплопритоков</dt><dd>1 200 ₸/м²</dd></div>
+        <div><dt>Диспетчеризация, вывод на BMS</dt><dd>от 900 000 ₸</dd></div>
+        <div><dt>Огнезадерживающий клапан</dt><dd>145 000 ₸/шт</dd></div>
+        <div><dt>Сервисный контракт</dt><dd>от 45 000 ₸/мес</dd></div>
+        <div><dt>Бытовой сплит под ключ</dt><dd>от 163 000 ₸</dd></div>
       </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────  ventilation  ───────────────────────── -->
+<section class="sheet" id="vent">
+  <div class="sheet__head">
+    <h2>Вентиляция, которую забывают заложить</h2>
+    <p>
+      Кондиционер гоняет по кругу тот же воздух. К обеду в переговорной на восемь
+      человек — 2000 ppm CO₂, и люди тупеют, а не мёрзнут. Половину наших заявок
+      на «доохладить» решает не холод, а приток.
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table class="ledger">
+      <caption>Приточно-вытяжная установка с роторным рекуператором: агрегат, воздуховоды, решётки, автоматика, пусконаладка, балансировка. Цены демонстрационные.</caption>
+      <thead>
+        <tr>
+          <th scope="col">Производительность</th>
+          <th scope="col">Что закрывает</th>
+          <th scope="col">Рекуперация</th>
+          <th scope="col">Под ключ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">1 000 м³/ч</th><td>офис до 150 м²</td><td>до 78 %</td><td class="num">3 200 000 ₸</td></tr>
+        <tr><th scope="row">2 000 м³/ч</th><td>офис или кафе до 300 м²</td><td>до 78 %</td><td class="num">5 400 000 ₸</td></tr>
+        <tr><th scope="row">3 500 м³/ч</th><td>до 600 м²</td><td>до 80 %</td><td class="num">8 900 000 ₸</td></tr>
+        <tr><th scope="row">5 000 м³/ч</th><td>этаж БЦ до 1000 м²</td><td>до 80 %</td><td class="num">12 600 000 ₸</td></tr>
+        <tr><th scope="row">9 000 м³/ч</th><td>до 1800 м²</td><td>до 82 %</td><td class="num">21 400 000 ₸</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Почему с рекуператором</h3>
+      <p class="note">
+        В январе в Алматы бывает −20. Без рекуперации установка на 2000 м³/ч
+        греет улицу с нуля до +18 — это порядка 40 кВт тепла, круглосуточно.
+        Роторный рекуператор снимает с вытяжки около трёх четвертей и отдаёт
+        притоку. Он дороже на 1,1–1,4 млн ₸ и отбивается за две зимы.
+      </p>
+    </div>
+    <div>
+      <h3>Что мы всегда добавляем</h3>
+      <ul class="ticks">
+        <li>Датчики CO₂ в переговорных — вентиляция работает по людям, не по часам</li>
+        <li>Водяной калорифер с защитой от замерзания и обратным клапаном</li>
+        <li>Балансировка по расходам с протоколом на каждую решётку</li>
+        <li>Фильтры G4 и F7, с датой замены на корпусе</li>
+        <li>Шумоглушители на приток и вытяжку до жилых и переговорных</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -121,59 +213,60 @@
 <!-- ───────────────────────────  estimator  ────────────────────────── -->
 <section class="sheet" id="estimate">
   <div class="sheet__head">
-    <h2>Посчитайте свой случай</h2>
+    <h2>Прикиньте порядок цифр</h2>
     <p>
-      Пять вопросов, ответ — сумма под ключ. Это не «оставьте заявку и мы
-      перезвоним»: считает та же таблица, по которой работают бригады.
-      На замере цифра может измениться только вниз или если стена окажется
-      монолитом.
+      Пять вопросов — вилка по объекту. Это не смета: настоящая считается после
+      обследования и зависит от высоты потолков, схемы подвесных потолков
+      и того, что осталось от вентиляции предыдущего арендатора. Но порядок
+      величины будет тот же.
     </p>
   </div>
 
   <form class="calc" id="calc" novalidate>
     <fieldset class="calc__q">
-      <legend>Площадь комнаты</legend>
-      <div class="opts" data-key="area">
-        <label><input type="radio" name="area" value="20" checked><span>до 20 м²</span></label>
-        <label><input type="radio" name="area" value="25"><span>до 25 м²</span></label>
-        <label><input type="radio" name="area" value="35"><span>до 35 м²</span></label>
-        <label><input type="radio" name="area" value="50"><span>до 50 м²</span></label>
-        <label><input type="radio" name="area" value="70"><span>до 70 м²</span></label>
+      <legend>Тип объекта</legend>
+      <div class="opts">
+        <label><input type="radio" name="kind" value="office" checked><span>Офис</span></label>
+        <label><input type="radio" name="kind" value="retail"><span>Магазин</span></label>
+        <label><input type="radio" name="kind" value="food"><span>Ресторан, кафе<em>воздухообмен выше</em></span></label>
+        <label><input type="radio" name="kind" value="med"><span>Медцентр<em>фильтрация</em></span></label>
       </div>
     </fieldset>
 
     <fieldset class="calc__q">
-      <legend>Класс блока</legend>
-      <div class="opts" data-key="class">
-        <label><input type="radio" name="class" value="base" checked><span>Бюджет<em>ALMACOM, OTEX</em></span></label>
-        <label><input type="radio" name="class" value="inv"><span>Инвертор<em>GREE, LG</em></span></label>
+      <legend>Площадь</legend>
+      <div class="opts">
+        <label><input type="radio" name="area" value="150" checked><span>до 150 м²</span></label>
+        <label><input type="radio" name="area" value="300"><span>до 300 м²</span></label>
+        <label><input type="radio" name="area" value="600"><span>до 600 м²</span></label>
+        <label><input type="radio" name="area" value="1000"><span>до 1000 м²</span></label>
+        <label><input type="radio" name="area" value="1800"><span>до 1800 м²</span></label>
       </div>
     </fieldset>
 
     <fieldset class="calc__q">
-      <legend>Длина трассы</legend>
-      <div class="opts" data-key="route">
-        <label><input type="radio" name="route" value="3" checked><span>до 3 м<em>входит в цену</em></span></label>
-        <label><input type="radio" name="route" value="5"><span>5 м</span></label>
-        <label><input type="radio" name="route" value="7"><span>7 м</span></label>
-        <label><input type="radio" name="route" value="10"><span>10 м</span></label>
+      <legend>Внутренние блоки</legend>
+      <div class="opts">
+        <label><input type="radio" name="unit" value="wall" checked><span>Настенные<em>входят в цену</em></span></label>
+        <label><input type="radio" name="unit" value="cassette"><span>Кассетные</span></label>
+        <label><input type="radio" name="unit" value="duct"><span>Канальные</span></label>
+        <label><input type="radio" name="unit" value="floor"><span>Напольно-потолочные</span></label>
       </div>
     </fieldset>
 
     <fieldset class="calc__q">
-      <legend>Штробление стены</legend>
-      <div class="opts" data-key="wall">
-        <label><input type="radio" name="wall" value="none" checked><span>Не нужно<em>короб по стене</em></span></label>
-        <label><input type="radio" name="wall" value="brick"><span>Кирпич, газоблок</span></label>
-        <label><input type="radio" name="wall" value="concrete"><span>Монолит</span></label>
+      <legend>Вентиляция</legend>
+      <div class="opts">
+        <label><input type="radio" name="vent" value="none" checked><span>Не нужна<em>уже есть на объекте</em></span></label>
+        <label><input type="radio" name="vent" value="full"><span>Приточно-вытяжная с рекуперацией</span></label>
       </div>
     </fieldset>
 
     <fieldset class="calc__q">
-      <legend>Наружный блок</legend>
-      <div class="opts" data-key="access">
-        <label><input type="radio" name="access" value="easy" checked><span>Балкон или до 3 этажа</span></label>
-        <label><input type="radio" name="access" value="rope"><span>Глухой фасад выше 3 этажа<em>нужен промальп</em></span></label>
+      <legend>Проект</legend>
+      <div class="opts">
+        <label><input type="radio" name="design" value="ours" checked><span>Нужен от нас</span></label>
+        <label><input type="radio" name="design" value="own"><span>Есть свой<em>от проектировщика объекта</em></span></label>
       </div>
     </fieldset>
   </form>
@@ -183,115 +276,90 @@
       <caption class="vh">Расчёт стоимости</caption>
       <tbody id="breakdown"></tbody>
     </table>
-    <p class="calc__total"><span>Под ключ</span><strong id="total">163 000 ₸</strong></p>
-    <p class="calc__fine">Цена действует до 30 сентября 2026 года. Оплата после запуска, наличными или переводом.</p>
+    <p class="calc__total"><span>Порядок цифр</span><strong id="total">—</strong></p>
+    <p class="calc__fine">Демонстрационный расчёт. Не является офертой и не учитывает НДС, высоту потолков и состояние существующих систем.</p>
   </div>
 </section>
 
-<!-- ────────────────────────  install sequence  ────────────────────── -->
-<section class="sheet" id="install">
+<!-- ────────────────────────  project sequence  ────────────────────── -->
+<section class="sheet" id="project">
   <div class="sheet__head">
-    <h2>Как проходит день монтажа</h2>
+    <h2>Как идёт объект</h2>
     <p>
-      Обычная квартира, одна сплит-система, бригада из двух человек. Приезжаем
-      к девяти, уходим до обеда. Если попадаем в монолит или на глухой фасад —
-      предупредим на замере, а не в процессе.
+      От первого выезда до подписания — от трёх до пяти месяцев, из них
+      половина ждёт поставку: VRF нужного типоразмера почти никогда не лежит
+      на складе. Сроки ниже — для объекта около 600 м².
     </p>
   </div>
 
   <ol class="steps">
     <li>
-      <span class="steps__t">30 мин</span>
-      <h3>Замер</h3>
-      <p>Считаем теплоприток по площади, окнам и стороне света, выбираем стену
-        и смотрим, куда уйдёт трасса. Отдельный день, бесплатно по городу.</p>
+      <span class="steps__t">1 день</span>
+      <h3>Обследование</h3>
+      <p>Смотрим потолки, шахты, электрику и что осталось от вентиляции.
+        Считаем, влезет ли наружный блок туда, куда его хочет поставить
+        архитектор. Бесплатно и без обязательств.</p>
+    </li>
+    <li>
+      <span class="steps__t">5–10 дней</span>
+      <h3>Проект</h3>
+      <p>Расчёт теплопритоков по помещениям, подбор оборудования, схема
+        магистралей и рефнетов, расчёт воздухообмена, спецификация. На выходе —
+        альбом, по которому может работать и другой подрядчик.</p>
+    </li>
+    <li>
+      <span class="steps__t">3–6 недель</span>
+      <h3>Поставка</h3>
+      <p>Наружные блоки VRF и вентустановки идут под заказ. Это тот срок,
+        который чаще всего ломает график ремонта, поэтому мы называем его
+        до подписания, а не после.</p>
     </li>
     <li class="has-plate">
-      <span class="steps__t">2–4 часа</span>
-      <h3>Штроба и трасса</h3>
-      <p>Медь вальцуем на месте, стыки — только под накидную гайку с
-        динамометрическим ключом. Пылесос работает всё время, пыль остаётся у нас.</p>
+      <span class="steps__t">2–4 недели</span>
+      <h3>Магистрали и воздуховоды</h3>
+      <p>Медь вальцуем и паяем в азоте, рефнеты ставим по проекту, а не «где
+        удобно». Воздуховоды собираем до подшивки потолка и опрессовываем —
+        после закрытия потолка искать негерметичность стоит дороже, чем всё
+        это смонтировать.</p>
       <figure class="steps__plate">
         <video class="plate" playsinline muted loop preload="none"
                poster="/video/plate-copper.jpg"
                data-webm="/video/plate-copper.webm" data-mp4="/video/plate-copper.mp4"
-               aria-label="Развальцованный конец медной трассы в накидной гайке"></video>
-        <figcaption>Гайку тянем ключом, а не «от руки до упора».</figcaption>
+               aria-label="Развальцованный конец медной магистрали в накидной гайке"></video>
+        <figcaption>Стык магистрали. На VRF их десятки — каждый под ключ с моментом.</figcaption>
       </figure>
     </li>
-    <li>
-      <span class="steps__t">1 час</span>
-      <h3>Блоки и кронштейн</h3>
-      <p>Наружный блок — на анкер в несущую, с зазором от стены под обслуживание.
-        Внутренний — по уровню, с уклоном дренажа 3 мм на метр.</p>
-    </li>
     <li class="has-plate">
-      <span class="steps__t">40 мин</span>
+      <span class="steps__t">6–12 часов</span>
       <h3>Вакуумирование</h3>
-      <p>Это тот шаг, который в Алматы чаще всего сокращают до пяти минут.
-        Мы держим насос сорок и проверяем, что стрелка стоит. Из-за этого делаем
-        в день на две установки меньше, чем могли бы, — и не меняем правило
-        даже в июле.</p>
+      <p>В бытовом сплите контур — три метра, и его сушат сорок минут. В VRF
+        на 600 м² магистралей больше двухсот метров, и вакуум мы держим
+        от шести часов до двенадцати, пока стрелка не встанет намертво.
+        Это тот шаг, на котором объект сдают на день позже, а не тот,
+        на котором экономят.</p>
       <figure class="steps__plate">
         <video class="plate" playsinline muted loop preload="none"
                poster="/video/plate-vacuum.jpg"
                data-webm="/video/plate-vacuum.webm" data-mp4="/video/plate-vacuum.mp4"
                aria-label="Масло в смотровом стекле вакуумного насоса, пузырьки успокаиваются"></video>
-        <figcaption>Пузырьки в масле насоса стихают — контур сухой.</figcaption>
+        <figcaption>Пузырьки в масле стихают — контур сухой.</figcaption>
       </figure>
     </li>
     <li>
-      <span class="steps__t">20 мин</span>
-      <h3>Пуск</h3>
-      <p>Замеряем температуру на выходе — должна быть на 8–12 °C ниже комнатной.
-        Показываем, как чистить фильтр, и оставляем гарантийный талон на бумаге.</p>
+      <span class="steps__t">3–5 дней</span>
+      <h3>Пусконаладка и балансировка</h3>
+      <p>Прописываем адреса внутренних блоков, разводим зоны по пультам,
+        балансируем воздух по расходам. На каждую решётку — замер и протокол.
+        Без этого половина кабинетов получает чужой объём воздуха.</p>
+    </li>
+    <li>
+      <span class="steps__t">1 день</span>
+      <h3>Сдача</h3>
+      <p>Исполнительная документация, паспорта, протоколы, обучение вашего
+        техника. Показываем, как снять ошибку с наружного блока, чтобы вы
+        не вызывали нас из-за забитого фильтра.</p>
     </li>
   </ol>
-</section>
-
-<!-- ────────────────────────  service ledger  ──────────────────────── -->
-<section class="sheet" id="service">
-  <div class="sheet__head">
-    <h2>Обслуживание и гарантия</h2>
-    <p>
-      Кондиционеру нужна чистка раз в год, до сезона. В апреле мы приезжаем
-      на следующий день, в июле — через два. Записывайтесь весной, это тот
-      редкий случай, когда совет продавца экономит вам деньги.
-    </p>
-  </div>
-
-  <div class="tablewrap">
-    <table class="ledger">
-      <caption class="vh">Цены на обслуживание</caption>
-      <thead><tr><th scope="col">Работа</th><th scope="col">Что делаем</th><th scope="col">Цена</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Чистка бытового блока</th><td>Фильтры, крыльчатка, дренаж, антибактериальная обработка</td><td class="num">18 000 ₸</td></tr>
-        <tr><th scope="row">Чистка с разбором</th><td>Снимаем блок, моем теплообменник под давлением</td><td class="num">32 000 ₸</td></tr>
-        <tr><th scope="row">Дозаправка R32</th><td>До 500 г, с поиском причины утечки</td><td class="num">14 000 ₸</td></tr>
-        <tr><th scope="row">Диагностика</th><td>Опрессовка, поиск утечки, отчёт по давлению</td><td class="num">15 000 ₸</td></tr>
-        <tr><th scope="row">Демонтаж</th><td>Со сбором фреона в наружный блок</td><td class="num">20 000 ₸</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="cols">
-    <div>
-      <h3>Гарантия</h3>
-      <dl class="rates">
-        <div><dt>На монтаж и трассу</dt><dd>3 года</dd></div>
-        <div><dt>На оборудование</dt><dd>заводская, 1–5 лет</dd></div>
-        <div><dt>Выезд по гарантии</dt><dd>бесплатно</dd></div>
-      </dl>
-    </div>
-    <div>
-      <h3>Где работаем</h3>
-      <p class="note">
-        Алматы целиком, включая Наурызбайский и Медеуский районы выше проспекта
-        аль-Фараби. Талгар, Каскелен, Отеген-Батыр и Боралдай — с выездом
-        6 000 ₸, который вычитаем из счёта, если заказ состоялся.
-      </p>
-    </div>
-  </div>
 </section>
 
 <!-- ─────────────────────────────  band  ───────────────────────────── -->
@@ -300,43 +368,104 @@
          poster="/video/plate-outdoor.jpg"
          data-webm="/video/plate-outdoor.webm" data-mp4="/video/plate-outdoor.mp4"
          aria-label="Наружный блок на кронштейне, полуденное солнце, горы за домом"></video>
-  <figcaption>Наружный блок ставится с зазором от стены. Иначе через три года его нечем будет мыть.</figcaption>
+  <figcaption>Наружные блоки ставятся с зазором на обслуживание и на выброс. Два блока вплотную греют друг друга и уходят в аварию в первый же июль.</figcaption>
 </figure>
+
+<!-- ─────────────────────────  service  ────────────────────────────── -->
+<section class="sheet" id="service">
+  <div class="sheet__head">
+    <h2>Сервис и гарантия</h2>
+    <p>
+      VRF без обслуживания живёт лет пять вместо пятнадцати. Поэтому мы
+      продаём контракт, а не разовые выезды: на контракте мы приезжаем по
+      графику и знаем этот объект, вне контракта — в порядке очереди.
+    </p>
+  </div>
+
+  <div class="tablewrap">
+    <table class="ledger">
+      <caption class="vh">Цены на обслуживание. Демонстрационные.</caption>
+      <thead><tr><th scope="col">Работа</th><th scope="col">Что делаем</th><th scope="col">Цена</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Сервисный контракт</th><td>Четыре плановых выезда в год, приоритет по авариям, замена фильтров</td><td class="num">от 45 000 ₸/мес</td></tr>
+        <tr><th scope="row">Обслуживание вентустановки</th><td>Фильтры, ротор рекуператора, привода клапанов, проверка автоматики</td><td class="num">120 000 ₸</td></tr>
+        <tr><th scope="row">Чистка внутреннего блока</th><td>С разбором и мойкой теплообменника</td><td class="num">32 000 ₸</td></tr>
+        <tr><th scope="row">Диагностика контура</th><td>Опрессовка, поиск утечки, отчёт по давлениям и ошибкам</td><td class="num">45 000 ₸</td></tr>
+        <tr><th scope="row">Аварийный выезд</th><td>По контракту — в течение четырёх часов</td><td class="num">по контракту</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cols">
+    <div>
+      <h3>Гарантия</h3>
+      <dl class="rates">
+        <div><dt>На монтаж и магистрали</dt><dd>3 года</dd></div>
+        <div><dt>На оборудование</dt><dd>заводская, 1–5 лет</dd></div>
+        <div><dt>На пусконаладку</dt><dd>1 год</dd></div>
+        <div><dt>Выезд по гарантии</dt><dd>бесплатно</dd></div>
+      </dl>
+    </div>
+    <div>
+      <h3>Где работаем</h3>
+      <p class="note">
+        Алматы и область. На объекты в Талгаре, Каскелене, Отеген-Батыре
+        и Боралдае выезжаем без надбавки, если объект от 300 м². Дальше по
+        стране берёмся только под проект целиком, вахтой — иначе не сможем
+        обслуживать то, что смонтировали.
+      </p>
+      <h3 class="mt">Бытовые сплиты</h3>
+      <p class="note">
+        Никуда не делись: квартиры мы по-прежнему делаем, от 163 000 ₸ под ключ
+        с трёхлетней гарантией на монтаж. Просто это не то, ради чего стоит
+        читать эту страницу.
+      </p>
+    </div>
+  </div>
+</section>
 
 <!-- ────────────────────────────  refusals  ────────────────────────── -->
 <section class="sheet sheet--dense" id="rules">
   <div class="sheet__head">
     <h2>Чего мы не делаем</h2>
-    <p>Короткий список, из-за которого мы иногда теряем заказ. Он не менялся с 2014 года.</p>
+    <p>Короткий список, из-за которого мы иногда теряем тендер. Он не менялся с 2014 года.</p>
   </div>
   <ol class="rules">
     <li>
-      <h3>Не вешаем блок над кроватью и над рабочим столом</h3>
-      <p>Предложим другую стену. Если другой стены нет — откажемся от заказа,
-        потому что через месяц вы всё равно позвоните и попросите перевесить.</p>
+      <h3>Не монтируем VRF без проекта</h3>
+      <p>«По месту» на объекте от 300 м² — это переделка через год за чей-то
+        счёт. Если проект уже есть у вашего проектировщика — прекрасно,
+        мы работаем по нему и не навязываем свой.</p>
     </li>
     <li>
-      <h3>Не сокращаем вакуумирование</h3>
-      <p>Сорок минут насоса. Это единственная причина, по которой мы дороже
-        бригады из объявления на 15–20 тысяч.</p>
+      <h3>Не смешиваем бренды в одном контуре</h3>
+      <p>Внутренние блоки одного производителя к наружному другого не встанут
+        по автоматике, что бы ни говорил поставщик. Дешевле сразу, дороже
+        на пусконаладке и без гарантии.</p>
     </li>
     <li>
-      <h3>Не лезем на фасад выше третьего этажа</h3>
-      <p>У нас нет допуска к промышленному альпинизму. Зовём смежников:
-        это плюс 25 000 ₸ и ещё один день. Свесить монтажника с балкона
-        на верёвке мы не предложим.</p>
+      <h3>Не сдаём вентиляцию без балансировки</h3>
+      <p>Замер расхода на каждой решётке и протокол. Без этого система формально
+        работает, а половина помещений получает чужой воздух — и вы об этом
+        узнаете в первый жаркий день.</p>
     </li>
     <li>
-      <h3>Не продаём мощность впрок</h3>
-      <p>На 18 м² не поставим «двенадцатку, чтобы наверняка». Инвертор будет
-        тактовать, компрессор износится раньше, и вы переплатите дважды —
-        сначала за блок, потом за счёт.</p>
+      <h3>Не меняем рекуператор на «просто приточку» ради сметы</h3>
+      <p>Можем, если настаиваете. Но сначала посчитаем при вас, во сколько
+        обойдётся греть этот воздух с −20 до +18 всю зиму, и покажем, за сколько
+        лет разница съедает экономию.</p>
     </li>
     <li>
-      <h3>Не ставим блок из вскрытой коробки</h3>
-      <p>Купили сами на маркетплейсе и коробку уже открывали — смонтируем,
-        но гарантию на герметичность контура не дадим. Проверить, что было
-        с блоком до нас, невозможно.</p>
+      <h3>Не вешаем кассетники над раздачей и над барной стойкой</h3>
+      <p>Холод в затылок повару и в тарелку гостю. Предложим другую схему.
+        Если по потолку другой схемы нет — скажем об этом на обследовании,
+        а не после монтажа.</p>
+    </li>
+    <li>
+      <h3>Не берёмся обслуживать чужой монтаж без ревизии</h3>
+      <p>Сначала диагностика контура и вскрытие пары узлов. Подписать контракт
+        на систему, про которую мы не знаем, чем её заправляли и как
+        вакуумировали, — это принять на себя чужие ошибки.</p>
     </li>
   </ol>
 </section>
@@ -345,20 +474,20 @@
 <section class="sheet sheet--dense" id="facts">
   <div class="sheet__head"><h2>Шестнадцать сезонов</h2></div>
   <dl class="figures">
-    <div><dt>Установок за сезон 2025</dt><dd>806</dd></div>
-    <div><dt>Монтажников в штате</dt><dd>9</dd></div>
-    <div><dt>Бригад на выезде</dt><dd>4</dd></div>
-    <div><dt>Рекорд одного дня</dt><dd>11 блоков</dd></div>
-    <div><dt>Повторных обращений</dt><dd>34 %</dd></div>
-    <div><dt>Срок от заявки до монтажа, май</dt><dd>1 день</dd></div>
-    <div><dt>Срок от заявки до монтажа, июль</dt><dd>2 дня</dd></div>
-    <div><dt>Объектов на обслуживании</dt><dd>212</dd></div>
+    <div><dt>Объектов на VRF</dt><dd>47</dd></div>
+    <div><dt>Внутренних блоков в работе</dt><dd>1 180</dd></div>
+    <div><dt>Вентустановок смонтировано</dt><dd>63</dd></div>
+    <div><dt>Самый крупный объект</dt><dd>2 400 м²</dd></div>
+    <div><dt>Инженеров-проектировщиков</dt><dd>2</dd></div>
+    <div><dt>Монтажных бригад</dt><dd>4</dd></div>
+    <div><dt>Объектов на контракте</dt><dd>212</dd></div>
+    <div><dt>Реакция по аварии</dt><dd>4 часа</dd></div>
   </dl>
   <p class="note note--wide">
-    Кроме квартир — офисы на Розыбакиева, две серверные, аптечная сеть
-    и четыре кофейни. В кафе мы ставим кассетники: настенный блок над
-    посадочными местами гоняет холод людям в затылок, и вам будут писать
-    об этом в отзывах.
+    Среди объектов — этаж бизнес-центра на аль-Фараби, две серверные,
+    сеть аптек, четыре кофейни и ресторан на 180 посадочных. Ресторан был
+    самым сложным: вытяжка над линией раздачи, приток в зал и требование,
+    чтобы в зале не было слышно ни того, ни другого.
   </p>
 </section>
 
@@ -367,19 +496,19 @@
   <video class="plate close__plate" playsinline muted loop preload="none"
          poster="/video/cta-room.jpg"
          data-webm="/video/cta-room.webm" data-mp4="/video/cta-room.mp4"
-         aria-label="Пустая светлая комната, стакан воды на столе, тюль у окна"></video>
+         aria-label="Спокойное светлое помещение, тихий воздух"></video>
   <div class="close__inner">
-    <h2>Напишите, какая<br>у вас комната</h2>
+    <h2>Пришлите планировку.<br>Вернёмся с цифрой.</h2>
     <p>
-      Площадь, этаж, сторона света и есть ли балкон — этого хватит, чтобы
-      назвать цену в переписке. Если сложно объяснить словами, пришлите фото
-      стены и окна.
+      Планировка, высота потолков и назначение помещений. Этого хватит,
+      чтобы назвать вилку по объекту в переписке и сказать, нужен ли вам
+      вообще VRF или хватит мультисплита.
     </p>
     <div class="close__cta">
-      <a class="btn btn--go" href="https://wa.me/77788242222?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D0%BA%D0%BE%D0%BD%D0%B4%D0%B8%D1%86%D0%B8%D0%BE%D0%BD%D0%B5%D1%80" target="_blank" rel="noopener">Написать в WhatsApp</a>
-      <a class="btn btn--quiet" href="tel:+77788242222">8 778 824 22 22</a>
+      <a class="btn btn--go" data-contact href="https://wa.me/77788242222?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D0%BD%D1%83%D0%B6%D0%B5%D0%BD%20%D1%80%D0%B0%D1%81%D1%87%D1%91%D1%82%20%D0%BF%D0%BE%20%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D1%83" target="_blank" rel="noopener">Отправить планировку</a>
+      <a class="btn btn--quiet" data-contact href="tel:+77788242222">8 778 824 22 22</a>
     </div>
-    <p class="close__hours">Пн–сб, 09:00–19:00. С июня по август — без выходных.</p>
+    <p class="close__hours">Пн–сб, 09:00–19:00. Аварийные выезды по контракту — круглосуточно.</p>
   </div>
 </section>
 
@@ -388,15 +517,15 @@
 <footer class="foot">
   <div class="foot__col">
     <p class="foot__name">ASD Climat</p>
-    <p>Климатическое оборудование в Алматы с 2010 года.<br>Продажа, монтаж, сервис.</p>
+    <p>Климатические системы в Алматы с 2010 года.<br>VRF, вентиляция, автоматика, сервис.</p>
   </div>
   <div class="foot__col">
-    <p><a href="tel:+77788242222">8 778 824 22 22</a></p>
-    <p><a href="mailto:zakaz@asd-climat.kz">zakaz@asd-climat.kz</a></p>
-    <p><a href="https://instagram.com/asd_climate_almaty" target="_blank" rel="noopener">@asd_climate_almaty</a></p>
+    <p><a data-contact href="tel:+77788242222">8 778 824 22 22</a></p>
+    <p><a data-contact href="mailto:zakaz@asd-climat.kz">zakaz@asd-climat.kz</a></p>
+    <p><a data-contact href="https://instagram.com/asd_climate_almaty" target="_blank" rel="noopener">@asd_climate_almaty</a></p>
   </div>
   <div class="foot__col">
-    <p>Алматы и пригороды</p>
+    <p>Алматы и область</p>
     <p>Пн–сб, 09:00–19:00</p>
     <p class="foot__fine">© 2010–2026</p>
   </div>
@@ -405,10 +534,10 @@
 <!-- running estimate, appears once the calculator is touched -->
 <div class="dock" id="dock" hidden>
   <div class="dock__sum">
-    <span>Ваш расчёт</span>
-    <strong id="dockTotal">163 000 ₸</strong>
+    <span>Порядок цифр по объекту</span>
+    <strong id="dockTotal">—</strong>
   </div>
-  <a class="btn btn--go dock__go" id="dockGo" href="#" target="_blank" rel="noopener">Отправить в WhatsApp</a>
+  <a class="btn btn--go dock__go" id="dockGo" data-contact href="#" target="_blank" rel="noopener">Обсудить объект</a>
 </div>
 
 <script type="module" src="/src/js/main.js"></script>

@@ -1,80 +1,119 @@
 /**
  * The estimator.
  *
- * This is the one thing on the page that isn't decoration: it runs the same
- * arithmetic the crews price by, so the numbers here and the numbers in the
- * two ledger tables above cannot drift apart — both come from PRICES.
+ * Not a quote — a range. On a commercial job the real number depends on ceiling
+ * heights, riser routes and whatever the previous tenant left behind, so this
+ * gives the order of magnitude and says so. What it must not do is disagree
+ * with the ledger tables above it: every figure here is the same one printed
+ * in the VRF and ventilation tables, so change them together.
  *
- * The output ends as a pre-filled WhatsApp message, because that is where this
- * business actually takes orders.
+ * The object-type question is not decorative. It moves the ventilation line
+ * only — a restaurant needs far more air changes per hour than an office of
+ * the same floor area, and that is the single biggest swing in the estimate.
  */
+
+import { isDemo } from './demo.js';
 
 const PHONE = '77788242222';
 
 const PRICES = {
-  // area (m²) → indoor unit size
-  power: { 20: '07', 25: '09', 35: '12', 50: '18', 70: '24' },
-  equip: {
-    '07': { base: 118000, inv: 198000 },
-    '09': { base: 129000, inv: 215000 },
-    '12': { base: 168000, inv: 289000 },
-    '18': { base: 245000, inv: 366000 },
-    '24': { base: 322000, inv: 474000 },
+  // floor area (m²) → the VRF row it lands on
+  vrf: {
+    150:  { outdoor: '12 кВт',  units: 6,  sum: 4900000 },
+    300:  { outdoor: '22 кВт',  units: 10, sum: 8600000 },
+    600:  { outdoor: '45 кВт',  units: 20, sum: 16400000 },
+    1000: { outdoor: '73 кВт',  units: 32, sum: 26800000 },
+    1800: { outdoor: '130 кВт', units: 56, sum: 46500000 },
   },
-  mount: { '07': 45000, '09': 45000, '12': 52000, '18': 68000, '24': 85000 },
-  routeIncluded: 3,
-  routePerM: 7000,
-  wall: { none: 0, brick: 4500, concrete: 7000 },
-  rope: 25000,
+  // surcharge per indoor unit; wall-mounted is what the table price includes
+  unit: { wall: 0, cassette: 85000, duct: 110000, floor: 95000 },
+  // air handling unit sized off the same area bands
+  vent: {
+    150:  { flow: '1 000 м³/ч', sum: 3200000 },
+    300:  { flow: '2 000 м³/ч', sum: 5400000 },
+    600:  { flow: '3 500 м³/ч', sum: 8900000 },
+    1000: { flow: '5 000 м³/ч', sum: 12600000 },
+    1800: { flow: '9 000 м³/ч', sum: 21400000 },
+  },
+  // air changes drive the ventilation line, and they are not the same per trade
+  kind: {
+    office: { label: 'офис',          vent: 1 },
+    retail: { label: 'магазин',       vent: 1 },
+    food:   { label: 'ресторан',      vent: 1.25 },
+    med:    { label: 'медцентр',      vent: 1.15 },
+  },
+  designPerM2: 1200,
+  designMin: 250000,
 };
 
-const CLASS_LABEL = { base: 'ALMACOM или OTEX', inv: 'инвертор GREE или LG' };
-const WALL_LABEL = { brick: 'кирпич, газоблок', concrete: 'монолит' };
+const UNIT_LABEL = {
+  wall: 'настенные',
+  cassette: 'кассетные',
+  duct: 'канальные',
+  floor: 'напольно-потолочные',
+};
 
-const tenge = (n) => `${n.toLocaleString('ru-RU').replace(/ /g, ' ')} ₸`;
+const tenge = (n) => `${n.toLocaleString('ru-RU')} ₸`;
+
+// A seven-figure total is easier to hold in the head as millions.
+const millions = (n) =>
+  `${(n / 1e6).toLocaleString('ru-RU', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} млн ₸`;
 
 function read(form) {
   const d = new FormData(form);
   return {
+    kind: d.get('kind'),
     area: +d.get('area'),
-    cls: d.get('class'),
-    route: +d.get('route'),
-    wall: d.get('wall'),
-    access: d.get('access'),
+    unit: d.get('unit'),
+    vent: d.get('vent'),
+    design: d.get('design'),
   };
 }
 
 function calculate(s) {
-  const power = PRICES.power[s.area];
+  const vrf = PRICES.vrf[s.area];
+  const kind = PRICES.kind[s.kind];
   const lines = [
-    { label: `Блок ${power}, ${CLASS_LABEL[s.cls]}`, sum: PRICES.equip[power][s.cls] },
-    { label: `Монтаж, трасса до ${PRICES.routeIncluded} м`, sum: PRICES.mount[power] },
+    { label: `VRF ${vrf.outdoor}, ${vrf.units} внутренних блоков`, sum: vrf.sum },
   ];
 
-  const extra = Math.max(0, s.route - PRICES.routeIncluded);
-  if (extra) lines.push({ label: `Трасса, ещё ${extra} м`, sum: extra * PRICES.routePerM });
-
-  if (s.wall !== 'none') {
+  const perUnit = PRICES.unit[s.unit];
+  if (perUnit) {
     lines.push({
-      label: `Штробление ${s.route} м, ${WALL_LABEL[s.wall]}`,
-      sum: s.route * PRICES.wall[s.wall],
+      label: `Блоки ${UNIT_LABEL[s.unit]}, ${vrf.units} × ${tenge(perUnit)}`,
+      sum: vrf.units * perUnit,
     });
   }
 
-  if (s.access === 'rope') lines.push({ label: 'Промышленный альпинизм', sum: PRICES.rope });
+  if (s.vent === 'full') {
+    const vent = PRICES.vent[s.area];
+    const label = kind.vent === 1
+      ? `Приточно-вытяжная с рекуперацией, ${vent.flow}`
+      : `Приточно-вытяжная с рекуперацией, ${vent.flow} · ${kind.label}, воздухообмен ×${String(kind.vent).replace('.', ',')}`;
+    lines.push({ label, sum: Math.round(vent.sum * kind.vent) });
+  }
 
-  lines.push({ label: 'Замер по Алматы', sum: 0, free: 'бесплатно' });
+  if (s.design === 'ours') {
+    lines.push({
+      label: `Проект, ${s.area} м² × ${tenge(PRICES.designPerM2)}/м²`,
+      sum: Math.max(PRICES.designMin, s.area * PRICES.designPerM2),
+    });
+  }
 
-  return { power, lines, total: lines.reduce((a, l) => a + l.sum, 0) };
+  lines.push({ label: 'Обследование объекта', sum: 0, free: 'бесплатно' });
+
+  return { vrf, lines, total: lines.reduce((a, l) => a + l.sum, 0) };
 }
 
 function message(s, r) {
+  const kind = PRICES.kind[s.kind].label;
   return [
     'Здравствуйте! Посчитал на сайте:',
-    `Комната до ${s.area} м², блок ${r.power}, ${CLASS_LABEL[s.cls]}.`,
-    `Трасса ${s.route} м${s.wall === 'none' ? ', без штробления' : `, штробление — ${WALL_LABEL[s.wall]}`}.`,
-    s.access === 'rope' ? 'Наружный блок на глухом фасаде выше 3 этажа.' : 'Наружный блок на балконе или до 3 этажа.',
-    `Вышло ${tenge(r.total)}. Когда можно на замер?`,
+    `Объект — ${kind}, до ${s.area} м².`,
+    `VRF ${r.vrf.outdoor}, ${r.vrf.units} блоков, ${UNIT_LABEL[s.unit]}.`,
+    s.vent === 'full' ? 'Нужна приточно-вытяжная вентиляция с рекуперацией.' : 'Вентиляция уже есть на объекте.',
+    s.design === 'ours' ? 'Проект нужен от вас.' : 'Проект есть свой.',
+    `Вышло около ${millions(r.total)}. Когда можно на обследование?`,
   ].join('\n');
 }
 
@@ -104,9 +143,15 @@ export function initEstimate() {
       return tr;
     }));
 
-    total.textContent = tenge(r.total);
-    dockTotal.textContent = tenge(r.total);
-    dockGo.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(message(state, r))}`;
+    total.textContent = millions(r.total);
+    dockTotal.textContent = millions(r.total);
+
+    // In demo mode the dock must not reach the real company with an invented
+    // seven-figure total attached. initDemo() strips hrefs once at boot; this
+    // one is rewritten on every recalculation, so it has to check for itself.
+    if (!isDemo()) {
+      dockGo.href = `https://wa.me/${PHONE}?text=${encodeURIComponent(message(state, r))}`;
+    }
   }
 
   const api = { dock, isTouched: () => touched, onTouch: null };

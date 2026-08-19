@@ -6,6 +6,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 
 import { initPlates } from './plates.js';
 import { initEstimate } from './estimate.js';
+import { initDemo } from './demo.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -26,14 +27,17 @@ if (!REDUCED) {
 }
 
 /* ── in-page links ──────────────────────────────────────────────────────── */
-const BAR = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar-h')) || 58;
+// The demo banner sits above the header, so anchors have to clear both.
+const px = (name, fallback) =>
+  parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || fallback;
+const OFFSET = () => px('--bar-h', 58) + (document.querySelector('.demo')?.offsetHeight || 0);
 
 document.querySelectorAll('a[href^="#"]').forEach((a) => {
   a.addEventListener('click', (e) => {
     const target = document.querySelector(a.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
-    if (lenis) lenis.scrollTo(target, { offset: -BAR() - 12 });
+    if (lenis) lenis.scrollTo(target, { offset: -OFFSET() - 12 });
     else target.scrollIntoView({ block: 'start' });
   });
 });
@@ -48,6 +52,7 @@ function initReveals() {
     ...document.querySelectorAll('.sheet__head'),
     ...document.querySelectorAll('.tablewrap'),
     ...document.querySelectorAll('.cols > *'),
+    ...document.querySelectorAll('.versus__col'),
     ...document.querySelectorAll('.steps > li'),
     ...document.querySelectorAll('.rules > li'),
     ...document.querySelectorAll('.figures > div'),
@@ -96,6 +101,7 @@ function initDock(est) {
   });
 }
 
+initDemo();
 initPlates();
 initReveals();
 initDock(initEstimate());
